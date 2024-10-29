@@ -10,13 +10,13 @@ type Props = {};
 const LandingPageNavBar = (props: Props) => {
   return (
     <div className="flex w-full justify-between items-center">
-      <div className="text-3xl font-semibold flex items-center gap-x-3">
-        <Menu className="w-8 h-8" />
+      <div className="text-3xl font-semibold flex items-center gap-x-2">
+        <Menu className="w-7 h-7" />
         <Image
           alt="logo"
           src="/logo.png"
-          width={49}
-          height={49}
+          width={43}
+          height={43}
           className="rounded-full"
         />
         ClipSync
