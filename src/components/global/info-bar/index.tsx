@@ -20,7 +20,7 @@ const InfoBar = (props: Props) => {
           placeholder="Search for projects, tags, folders & people"
         />
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 pr-8">
         <Button className="bg-[#9D9D9D] flex items-center gap-2">
           <UploadIcon size={20} />{' '}
           <span className="flex items-center gap-2">Upload</span>
@@ -29,7 +29,7 @@ const InfoBar = (props: Props) => {
           <VideoRecorderIcon />
           <span className="flex items-center gap-2">Record</span>
         </Button>
-        <UserButton />
+        <UserButton/>
       </div>
     </header>
   )
