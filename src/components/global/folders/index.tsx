@@ -2,7 +2,7 @@
 import FolderDuotone from '@/components/icons/folder-duotone'
 import { cn } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
-// import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Folder from './folder'
 import { useQueryData } from '@/hooks/useQueryData'
 import { getWorkspaceFolders } from '@/actions/workspace'
@@ -33,7 +33,9 @@ const Folders = ({ workspaceId }: Props) => {
 
   const { latestVariables } = useMutationDataState(['create-folder'])
 
-  const { status, data: folders } = data as FoldersProps
+  // const { status, data: folders } = data as FoldersProps
+  const { status = 0, data: folders = [] } = (data as FoldersProps) || {};
+
   return (
     <div
       className="flex flex-col gap-4"
