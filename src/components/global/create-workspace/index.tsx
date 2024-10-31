@@ -1,32 +1,32 @@
-'use client'
-import { getWorkSpaces } from '@/actions/workspace'
+"use client";
+import { getWorkSpaces } from "@/actions/workspace";
 
-import React from 'react'
-import Modal from '../modal'
-import { Button } from '@/components/ui/button'
-import { useQueryData } from '@/hooks/useQueryData'
-import FolderPlusDuotine from '@/components/icons/folder-plus-duotone'
-import WorkspaceForm from '@/components/forms/workspace-form'
+import React from "react";
+import Modal from "../modal";
+import { Button } from "@/components/ui/button";
+import { useQueryData } from "@/hooks/useQueryData";
+import FolderPlusDuotine from "@/components/icons/folder-plus-duotone";
+import WorkspaceForm from "@/components/forms/workspace-form";
 
-type Props = {}
+type Props = {};
 
 const CreateWorkspace = (props: Props) => {
-  const { data } = useQueryData(['user-workspaces'], getWorkSpaces)
+  const { data } = useQueryData(["user-workspaces"], getWorkSpaces);
 
   const { data: plan } = data as {
-    status: number
+    status: number;
     data: {
       subscription: {
-        plan: 'PRO' | 'FREE'
-      } | null
-    }
+        plan: "PRO" | "FREE";
+      } | null;
+    };
+  };
+
+  if (plan.subscription?.plan === "FREE") {
+    return <></>;
   }
 
-  if (plan.subscription?.plan === 'FREE') {
-    return <></>
-  }
-
-  if (plan.subscription?.plan === 'PRO')
+  if (plan.subscription?.plan === "PRO")
     return (
       <Modal
         title="Create a Workspace"
@@ -40,7 +40,7 @@ const CreateWorkspace = (props: Props) => {
       >
         <WorkspaceForm />
       </Modal>
-    )
-}
+    );
+};
 
-export default CreateWorkspace
+export default CreateWorkspace;

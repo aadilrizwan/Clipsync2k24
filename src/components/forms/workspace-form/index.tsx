@@ -1,22 +1,19 @@
-import FormGenerator from '@/components/global/form-generator'
-import Loader from '@/components/global/loader'
-import { Button } from '@/components/ui/button'
-import { useCreateWorkspace } from '@/hooks/useCreateWorkspace'
-import React from 'react'
+import FormGenerator from "@/components/global/form-generator";
+import Loader from "@/components/global/loader";
+import { Button } from "@/components/ui/button";
+import { useCreateWorkspace } from "@/hooks/useCreateWorkspace";
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const WorkspaceForm = (props: Props) => {
-  const { errors, isPending, onFormSubmit, register } = useCreateWorkspace()
+  const { errors, isPending, onFormSubmit, register } = useCreateWorkspace();
   return (
-    <form
-      onSubmit={onFormSubmit}
-      className="flex flex-col gap-y-3"
-    >
+    <form onSubmit={onFormSubmit} className="flex flex-col gap-y-3">
       <FormGenerator
         register={register}
         name="name"
-        placeholder={'Workspace Name'}
+        placeholder={"Workspace Name"}
         label="Name"
         errors={errors}
         inputType="input"
@@ -30,7 +27,7 @@ const WorkspaceForm = (props: Props) => {
         <Loader state={isPending}>Create Workspace</Loader>
       </Button>
     </form>
-  )
-}
+  );
+};
 
-export default WorkspaceForm
+export default WorkspaceForm;
