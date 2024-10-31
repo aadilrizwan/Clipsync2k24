@@ -12,6 +12,8 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import CreateWorkspace from '@/components/global/create-workspace'
+import CreateForlders from "@/components/global/create-folders";
+import Folders from "@/components/global/folders";
 
 type Props = {
   params: { workspaceId: string };
@@ -51,8 +53,14 @@ const Page = async ({ params }: Props) => {
           </TabsList>
           <div className="flex gap-x-3">
             <CreateWorkspace />
+            <CreateForlders workspaceId={workspaceId} />
           </div>
         </div>
+        <section className="py-9">
+            <TabsContent value="videos">
+              <Folders workspaceId={workspaceId} />
+            </TabsContent>
+          </section>
       </Tabs>
     </div>
     // {/* </HydrationBoundary> */}
