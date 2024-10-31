@@ -5,6 +5,7 @@ import { Manrope, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme";
 import ReactQueryProvider from "@/react-query";
+import { ReduxProvider } from "@/redux/provider";
 
 const manrope = DM_Sans({ subsets: ["latin"] });
 
@@ -28,10 +29,13 @@ export default function RootLayout({
             defaultTheme="dark"
             disableTransitionOnChange
           >
+            <ReduxProvider>
             <ReactQueryProvider>
               {children}
               {/* <Toaster /> */}
             </ReactQueryProvider>
+            </ReduxProvider>
+            
           </ThemeProvider>
         </body>
       </html>
