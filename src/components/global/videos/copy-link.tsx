@@ -14,7 +14,7 @@ type Props = {
     | 'ghost'
     | 'link'
     | null
-}
+} 
 
 const CopyLink = ({ videoId, className, variant }: Props) => {
   const onCopyClipboard = () => {

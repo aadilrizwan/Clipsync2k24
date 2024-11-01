@@ -34,7 +34,8 @@ const VideoCard = (props: Props) => {
   return (
     <Loader
       className="bg-[#171717] flex justify-center items-center border-[1px] border-[rgb(37,37,37)] rounded-xl"
-      state={props.processing}
+      // state={props.processing}
+      state={false}
     >
       <div className=" group overflow-hidden cursor-pointer bg-[#171717] relative border-[1px] border-[#252525] flex flex-col rounded-xl">
         <div className="absolute top-3 right-3 z-50 gap-x-3 hidden group-hover:flex">
@@ -47,7 +48,7 @@ const VideoCard = (props: Props) => {
           <CopyLink
             className="p-[5px] h-5 bg-hover:bg-transparent bg-[#252525]"
             videoId={props.id}
-          />
+          /> 
         </div>
         <Link
           href={`/dashboard/${props.workspaceId}/video/${props.id}`}
@@ -62,7 +63,7 @@ const VideoCard = (props: Props) => {
               src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL}/${props.source}#t=1`}
             />
           </video>
-          <div className="px-5 py-3 flex flex-col gap-7-2 z-20">
+          <div className="px-5 py-3 flex flex-col gap-y-2 z-20">
             <h2 className="text-sm font-semibold text-[#BDBDBD]">
               {props.title}
             </h2>
