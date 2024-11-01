@@ -334,4 +334,4 @@ export const getPreviewVideo = async (videoId: string) => {
   } catch (error) {
     return { status: 400 }
   }
-}
+} 
