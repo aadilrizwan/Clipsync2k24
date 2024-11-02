@@ -338,7 +338,18 @@ export const inviteMembers = async (
         lastname: true,
       },
     })
-    if (senderInfo?.id) {
+    const receiverInfo = await client.user.findUnique({
+      where: {
+        id: recieverId,
+      },
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+      },
+    })
+    // console.log(receiverInfo)
+    if (senderInfo?.id && receiverInfo?.id) {
       const workspace = await client.workSpace.findUnique({
         where: {
           id: workspaceId,
@@ -367,7 +378,7 @@ export const inviteMembers = async (
           data: {
             notification: {
               create: {
-                content: `${user.firstName} ${user.lastName} invited ${senderInfo.firstname} into ${workspace.name}`,
+                content: `${user.firstName} ${user.lastName} invited ${receiverInfo.firstname} into ${workspace.name}`,
               },
             },
           },

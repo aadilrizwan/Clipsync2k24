@@ -34,7 +34,7 @@ const Notifications = (props: Props) => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-1">
       {notification.notification.map((n) => (
         <div
           key={n.id}
