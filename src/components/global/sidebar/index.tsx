@@ -30,7 +30,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import InfoBar from "../info-bar";
 import { useDispatch } from "react-redux";
 import { WORKSPACES } from "@/redux/slices/workspaces";
-// import PaymentButton from '../payment-button'
+import PaymentButton from '../payment-button'
 type Props = {
   activeWorkspaceId: string;
 };
@@ -194,7 +194,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
         <GlobalCard
           title="Unlock Pro Features"
           description=" Access AI-driven features such as transcription and content summaries"
-          // footer={<PaymentButton />}
+          footer={<PaymentButton />}
         />
       )}
     </div>
