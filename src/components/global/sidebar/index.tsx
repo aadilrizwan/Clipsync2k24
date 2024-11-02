@@ -30,7 +30,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import InfoBar from "../info-bar";
 import { useDispatch } from "react-redux";
 import { WORKSPACES } from "@/redux/slices/workspaces";
-// import PaymentButton from '../payment-button'
+import PaymentButton from '../payment-button'
 type Props = {
   activeWorkspaceId: string;
 };
@@ -63,7 +63,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
   }
 
   const SidebarSection = (
-    <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden">
+    <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center">
       <div className="bg-[#111111] p-4 flex gap-2 justify-center items-center mb-4 absolute top-0 left-0 right-0 ">
         <Image src="/logo.png" height={43} width={43} alt="logo" />
         <p className="text-2xl">ClipSync</p>
@@ -194,7 +194,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
         <GlobalCard
           title="Unlock Pro Features"
           description=" Access AI-driven features such as transcription and content summaries"
-          // footer={<PaymentButton />}
+          footer={<PaymentButton />}
         />
       )}
     </div>
