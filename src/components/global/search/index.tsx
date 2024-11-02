@@ -8,7 +8,7 @@ import { User } from 'lucide-react'
 
 import React from 'react'
 import Loader from '../loader'
-// import { inviteMembers } from '@/actions/user'
+import { inviteMembers } from '@/actions/user'
 
 type Props = {
   workspaceId: string
@@ -22,11 +22,11 @@ const Search = ({ workspaceId }: Props) => {
 
 
 
-  // const { mutate, isPending } = useMutationData(
-  //   ['invite-member'],
-  //   (data: { recieverId: string; email: string }) =>
-  //     inviteMembers(workspaceId, data.recieverId, data.email)
-  // )
+  const { mutate, isPending } = useMutationData(
+    ['invite-member'],
+    (data: { recieverId: string; email: string }) =>
+      inviteMembers(workspaceId, data.recieverId, data.email)
+  )
 
   return (
     <div className="flex flex-col gap-y-5">
@@ -66,7 +66,7 @@ const Search = ({ workspaceId }: Props) => {
                 </p>
               </div>
               <div className="flex-1 flex justify-end items-center">
-                {/* <Button
+                <Button
                   onClick={() =>
                     mutate({ recieverId: user.id, email: user.email })
                   }
@@ -79,7 +79,7 @@ const Search = ({ workspaceId }: Props) => {
                   >
                     Invite
                   </Loader>
-                </Button> */}
+                </Button>
               </div>
             </div>
           ))}
