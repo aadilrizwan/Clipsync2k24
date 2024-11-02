@@ -1,22 +1,22 @@
-'use client'
-import CommentForm from '@/components/forms/comment-form'
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
-import { CommentRepliesProps } from '@/types/index.type'
-import { Dot, DotIcon } from 'lucide-react'
-import React, { useState } from 'react'
+"use client";
+import CommentForm from "@/components/forms/comment-form";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { CommentRepliesProps } from "@/types/index.type";
+import { Dot, DotIcon } from "lucide-react";
+import React, { useState } from "react";
 
 type Props = {
-  comment: string
-  author: { image: string; firstname: string; lastname: string }
-  videoId: string
-  commentId?: string
-  reply: CommentRepliesProps[]
-  isReply?: boolean
-  createdAt: Date
-}
+  comment: string;
+  author: { image: string; firstname: string; lastname: string };
+  videoId: string;
+  commentId?: string;
+  reply: CommentRepliesProps[];
+  isReply?: boolean;
+  createdAt: Date;
+};
 
 const CommentCard = ({
   author,
@@ -27,36 +27,33 @@ const CommentCard = ({
   isReply,
   createdAt,
 }: Props) => {
-  const [onReply, setOnReply] = useState<boolean>(false)
+  const [onReply, setOnReply] = useState<boolean>(false);
   const daysAgo = Math.floor(
     (new Date().getTime() - createdAt.getTime()) / (24 * 60 * 60 * 1000)
-  )
+  );
 
   return (
     <Card
       className={cn(
         isReply
-          ? 'bg-[#1D1D1D] pl-10 border-none shadow-none'
-          : 'border-[1px] bg-[#1D1D1D] p-5 shadow-none',
-        'relative'
+          ? "bg-[#1D1D1D] pl-10 border-none shadow-none"
+          : "border-[1px] bg-[#1D1D1D] p-5 shadow-none",
+        "relative"
       )}
     >
       <div className="flex gap-x-2 items-center">
         <Avatar>
-          <AvatarImage
-            src={author.image}
-            alt="author"
-          />
+          <AvatarImage src={author.image} alt="author" />
         </Avatar>
         <p className="capitalize text-sm text-[#BDBDBD] flex">
-          {author.firstname} {author.lastname}{' '}
-          <div className="flex items-center gap-[0]">
-            <DotIcon className="text-[#707070]" />
-            <span className="text-[#707070] text-xs ml-[-6px]">
-              {daysAgo === 0 ? 'Today' : `${daysAgo}d ago`}
-            </span>
-          </div>
+          {author.firstname} {author.lastname}{" "}
         </p>
+        <div className="flex items-center gap-[0]">
+          <DotIcon className="text-[#707070]" />
+          <span className="text-[#707070] text-xs ml-[-6px]">
+            {daysAgo === 0 ? "Today" : `${daysAgo}d ago`}
+          </span>
+        </div>
       </div>
       <div>
         <p className="text-[#BDBDBD]">{comment}</p>
@@ -75,7 +72,7 @@ const CommentCard = ({
               close={() => setOnReply(false)}
               videoId={videoId}
               commentId={commentId}
-              author={author.firstname + ' ' + author.lastname}
+              author={author.firstname + " " + author.lastname}
             />
           )}
         </div>
@@ -101,7 +98,7 @@ const CommentCard = ({
         </div>
       )}
     </Card>
-  )
-}
+  );
+};
 
-export default CommentCard
+export default CommentCard;
