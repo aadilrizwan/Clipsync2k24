@@ -3,6 +3,7 @@ import { Loader } from "../Loader";
 import { useEffect, useState } from "react";
 import { fetchUserProfile } from "@/lib/utils";
 import { useMediaSources } from "@/hooks/useMediaSources";
+import MediaConfiguration from "../MediaConfiguration";
 
 const Widget = () => {
   const [profile, setProfile] = useState<{
@@ -31,7 +32,7 @@ const Widget = () => {
       | null;
   } | null>(null);
   const { user } = useUser();
-//   const {state, fetchMediaResources} = useMediaSources();
+  const { state, fetchMediaResources } = useMediaSources();
 
   useEffect(() => {
     if (user && user.id) {
@@ -46,15 +47,15 @@ const Widget = () => {
           <Loader />
         </div>
       </ClerkLoading>
-      {/* <SignedIn>
+      <SignedIn>
         {profile ? (
-          <MediaConfiguration />
+          <MediaConfiguration state={state} user={profile?.user} />
         ) : (
           <div className="w-full h-full justify-center items-center">
             <Loader color="#fff"></Loader>
           </div>
         )}
-      </SignedIn> */}
+      </SignedIn>
     </div>
   );
 };
