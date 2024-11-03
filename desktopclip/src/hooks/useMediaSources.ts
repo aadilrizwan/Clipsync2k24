@@ -43,16 +43,18 @@ export const useMediaSources = () => {
   );
 
   const fetchMediaResources = () => {
-    action({type:'GET_DEVICES', payload: {isPending: true}})
+    action({ type: 'GET_DEVICES', payload: { isPending: true } })
     getMediaSources().then((sources) => action({
-        type: 'GET_DEVICES',
-        payload: {
-            displays: sources.displays,
-            audioInputs: sources.audio,
-            isPending: false,
-        }
-    }))
+      type: 'GET_DEVICES',
+      payload: {
+        displays: sources.displays,
+        audioInputs: sources.audio,
+        isPending: false,
+      }
+    })
+    )
   };
 
-  return {state, fetchMediaResources};
+  return { state, fetchMediaResources };
 };
+// media

@@ -12,13 +12,12 @@ const httpsClient = axios.create({
 
 export const onCloseApp = () => window.ipcRenderer.send("closeApp");
 
-export const fetchUserProfile = async (clerkId: string) => { 
-  //TODO: REVIEW THIS CODE
+export const fetchUserProfile = async (clerkId: string) => {
   const response = await httpsClient.get(`/auth/${clerkId}`, {
     headers: {
       "Content-Type": "application/json",
     },
-  }); 
+  });
 
   return response.data;
 };
@@ -36,3 +35,26 @@ export const getMediaSources = async () => {
 
   return { displays, audio: audioInputs };
 };
+
+
+export const updateStudioSetting = async (
+  id: string,
+  screen: string,
+  audio: string,
+  preset: 'HD' | 'SD'
+) => {
+  const response = await httpsClient.post(
+    `/studio/${id}`,
+    {
+      screen,
+      audio,
+      preset,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  )
+  return response.data
+}

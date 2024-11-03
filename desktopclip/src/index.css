@@ -77,7 +77,8 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-transparent text-foreground overflow-hidden;
+    border-radius: 20px;
   }
 }
 
