@@ -18,7 +18,7 @@ export const fetchUserProfile = async (clerkId: string) => {
     headers: {
       "Content-Type": "application/json",
     },
-  });
+  }); 
 
   return response.data;
 };
