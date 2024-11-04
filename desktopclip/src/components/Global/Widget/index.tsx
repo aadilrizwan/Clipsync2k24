@@ -33,6 +33,10 @@ const Widget = () => {
   } | null>(null);
   const { user } = useUser();
   const { state, fetchMediaResources } = useMediaSources();
+  // fetchMediaResources();
+  useEffect(() => {
+    fetchMediaResources();
+  }, [])
 
   useEffect(() => {
     if (user && user.id) {
@@ -40,7 +44,7 @@ const Widget = () => {
     }
   }, [user]);
 
-  return (
+  return ( 
     <div className="p-5">
       <ClerkLoading>
         <div className="h-full flex justify-center items-center">
