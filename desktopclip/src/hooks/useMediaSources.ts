@@ -52,7 +52,7 @@ export const useMediaSources = () => {
         isPending: false,
       }
     })
-    )
+    ).catch((err) => console.log("Error fetching media sources ", err))
   };
 
   return { state, fetchMediaResources };

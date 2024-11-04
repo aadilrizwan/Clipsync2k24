@@ -23,7 +23,9 @@ export const fetchUserProfile = async (clerkId: string) => {
 };
 
 export const getMediaSources = async () => {
+  console.log("Hello")
   const displays = await window.ipcRenderer.invoke("getSources");
+  console.log("Inside utils ", displays);
   const enumerateDevices =
     await window.navigator.mediaDevices.enumerateDevices();
 
@@ -37,7 +39,7 @@ export const getMediaSources = async () => {
 };
 
 
-export const updateStudioSetting = async (
+export const updateStudioSetting = async ( 
   id: string,
   screen: string,
   audio: string,
@@ -57,4 +59,16 @@ export const updateStudioSetting = async (
     }
   )
   return response.data
+}
+
+export const hidePluginWindow = (state: boolean) => {
+  window.ipcRenderer.send('hide-plugin', {state})
+}
+
+export const videoRecordingTime = (ms: number) => {
+  const second = Math.floor((ms/1000) % 60).toString().padStart(2, '0');
+  const minute = Math.floor((ms/(1000*60)) % 60).toString().padStart(2, '0');
+  const hour = Math.floor((ms/(1000*60*60)) % 24).toString().padStart(2, '0');
+
+  return {length: `${hour}:${minute}:${second}`, minute};
 }

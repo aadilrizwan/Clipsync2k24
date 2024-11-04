@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { DefaultValues, useForm } from 'react-hook-form'
 import z from 'zod'
 
-export const useZodForm = <T extends z.ZodType<any>>(
+export const useZodForm = <T extends z.ZodType<any>>( 
     schema: T,
     defaultValues?: DefaultValues<z.TypeOf<T>> | undefined
 ) => {

@@ -2,11 +2,18 @@ import { client } from '@/lib/prisma'
 import { clerkClient } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server'
 
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
 export async function GET(
   req: NextRequest,
-  { params: { id } }: { params: { id: string } }
+  {params}: Props 
 ) {
   console.log('Enpoint hit ✅')
+  const {id} = await params;
 
   try {
     const userProfile = await client.user.findUnique({
@@ -24,7 +31,9 @@ export async function GET(
     })
     if (userProfile)
       return NextResponse.json({ status: 200, user: userProfile })
-    const clerkUserInstance = await clerkClient.users.getUser(id)
+
+    const clerk = await clerkClient();
+    const clerkUserInstance = await clerk.users.getUser(id)
     const createUser = await client.user.create({
       data: {
         clerkid: id,

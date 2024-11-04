@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query"
 import { updateStudioSetting } from "@/lib/utils"
 import { toast } from "sonner"
 
-export const useStudioSettings = (
+export const useStudioSettings = ( 
     id: string,
     screen?: string | null,
     audio?: string | null,
@@ -36,7 +36,7 @@ export const useStudioSettings = (
     })
 
     useEffect(() =>{
-        if(screen&& audio&& preset){
+        if(screen&& audio){
             window.ipcRenderer.send('media-sources',{
                 screen,
                 id:id,
@@ -45,7 +45,7 @@ export const useStudioSettings = (
                 plan,
             })
         }
-    },[])
+    },[screen,audio])
 
     useEffect(()=>{
         const subscribe = watch((values)=>{
