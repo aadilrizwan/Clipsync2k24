@@ -6,7 +6,7 @@ import tsConfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  build: {
+  build: { 
     emptyOutDir: false,
     manifest: true,
     outDir: 'dist',
@@ -14,6 +14,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         studio_main:resolve(__dirname,'studio.html'),
+        web_cam_main:resolve(__dirname,'webcam.html'),
       }
     }
   },

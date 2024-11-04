@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, desktopCapturer, ipcMain } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
@@ -64,7 +64,7 @@ function createWindow() {
     },
   })
 
-  floatingWebCam = new BrowserWindow({
+  floatingWebCam = new BrowserWindow({ 
     width: 400,
     height: 200,
     minHeight: 70,
@@ -99,8 +99,8 @@ function createWindow() {
 
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL)
-    studio.loadURL(`${import.meta.env.VITE_APP_URL}/desktopclip/studio.html`)
-    floatingWebCam.loadURL(`${import.meta.env.VITE_APP_URL}/desktopclip/webcam.html`)
+    studio.loadURL(`${import.meta.env.VITE_APP_URL}/studio.html`)
+    floatingWebCam.loadURL(`${import.meta.env.VITE_APP_URL}/webcam.html`)
 
   } else {
     // win.loadFile('dist/index.html')
@@ -117,7 +117,47 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
     win = null
+    studio = null
+    floatingWebCam = null
   }
+})
+ipcMain.on('closeApp', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+    win = null
+    studio = null
+    floatingWebCam = null
+  }
+})
+
+ipcMain.handle('getSources', async () => {
+  const data = await desktopCapturer.getSources({
+    thumbnailSize: {height: 100, width: 150},
+    types: ['screen', 'window'],
+    fetchWindowIcons: true
+  })
+  // console.log("Displays ", data)
+  return data;
+})
+
+ipcMain.on('media-sources', (event, payload) => {
+  console.log(event)
+  studio?.webContents.send('profile-recieved', payload)
+})
+
+ipcMain.on('resize-studio', (event, payload) => {
+  console.log(event)
+  if(payload.shrink){
+    studio?.setSize(400, 100)
+  }
+  if(!payload.shrink){
+    studio?.setSize(400, 250)
+  }
+})
+
+ipcMain.on('hide-plugin', (event, payload) => {
+  console.log(event)
+  win?.webContents.send('hide-plugin', payload)
 })
 
 app.on('activate', () => {

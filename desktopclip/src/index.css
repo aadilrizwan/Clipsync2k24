@@ -78,7 +78,7 @@
   }
   body {
     @apply bg-transparent text-foreground overflow-hidden;
-    border-radius: 20px;
+    /* border-radius: 20px; */
   }
 }
 

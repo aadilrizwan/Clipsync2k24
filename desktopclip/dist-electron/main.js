@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, ipcMain, desktopCapturer, BrowserWindow } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -78,8 +78,8 @@ function createWindow() {
   });
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
-    studio.loadURL(`${"http://localhost:5173"}/desktopclip/studio.html`);
-    floatingWebCam.loadURL(`${"http://localhost:5173"}/desktopclip/webcam.html`);
+    studio.loadURL(`${"http://localhost:5173"}/studio.html`);
+    floatingWebCam.loadURL(`${"http://localhost:5173"}/webcam.html`);
   } else {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
     studio.loadFile(path.join(RENDERER_DIST, "studio.html"));
@@ -90,7 +90,42 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
     win = null;
+    studio = null;
+    floatingWebCam = null;
   }
+});
+ipcMain.on("closeApp", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+    win = null;
+    studio = null;
+    floatingWebCam = null;
+  }
+});
+ipcMain.handle("getSources", async () => {
+  const data = await desktopCapturer.getSources({
+    thumbnailSize: { height: 100, width: 150 },
+    types: ["screen", "window"],
+    fetchWindowIcons: true
+  });
+  return data;
+});
+ipcMain.on("media-sources", (event, payload) => {
+  console.log(event);
+  studio == null ? void 0 : studio.webContents.send("profile-recieved", payload);
+});
+ipcMain.on("resize-studio", (event, payload) => {
+  console.log(event);
+  if (payload.shrink) {
+    studio == null ? void 0 : studio.setSize(400, 100);
+  }
+  if (!payload.shrink) {
+    studio == null ? void 0 : studio.setSize(400, 250);
+  }
+});
+ipcMain.on("hide-plugin", (event, payload) => {
+  console.log(event);
+  win == null ? void 0 : win.webContents.send("hide-plugin", payload);
 });
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
