@@ -15,17 +15,11 @@ import {
 
 type Props = {
   plan: "PRO" | "FREE";
-  trial: boolean; //so that user can use one of the ai features only once in free plan (for trial purposes)
+  trial: boolean;
   videoId: string;
 };
 
 const AiTools = ({ plan, trial, videoId }: Props) => {
-  //Are they on a free plan?
-  //have they already tried the AI feature?
-  //if not? Try button
-
-  // useMutationData
-  //serveraction titles and description
   return (
     <TabsContent value="Ai tools">
       <div className="p-5 bg-[#1D1D1D]  rounded-xl flex flex-col gap-y-6 ">
@@ -43,20 +37,11 @@ const AiTools = ({ plan, trial, videoId }: Props) => {
                 Try now
               </Loader>
             </Button>
-            {/* TODO: Pay button  */}
             <Button className="mt-2 text-sm" variant={"secondary"}>
               <Loader state={false} color="#000">
                 Pay Now
               </Loader>
             </Button>
-            {/* <Button className=" mt-2 text-sm">
-            <Loader
-              state={false}
-              color="#000"
-            >
-              Generate Now
-            </Loader>
-          </Button> */}
           </div>
         </div>
         <div className=" border-[1px] rounded-xl p-4 gap-4 flex flex-col bg-[#1b0f1b7f] ">

@@ -14,8 +14,6 @@ const isProtectedRoutes = createRouteMatcher(['/dashboard(.*)', '/payment(.*)'])
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const origin = req.headers.get('origin') ?? ''
   const isAllowedOrigin = allowedOrigins.includes(origin)
-
-  // Handle preflight requests
   if (req.method === 'OPTIONS') {
     const preflightHeaders = {
       ...(isAllowedOrigin && { 'Access-Control-Allow-Origin': origin }),
@@ -23,14 +21,10 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     }
     return NextResponse.json({}, { headers: preflightHeaders })
   }
-
-  // Handle protected routes
   const authObject = await auth();
     if (isProtectedRoutes(req) && !authObject.userId) {
     return authObject.redirectToSignIn();
   }
-
-  // Handle simple requests
   const response = NextResponse.next()
 
   if (isAllowedOrigin) {

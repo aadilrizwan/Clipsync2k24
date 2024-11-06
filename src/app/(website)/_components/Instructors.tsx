@@ -28,7 +28,7 @@ const instructors = [
 
 function Instructors() {
   return (
-    <div className="h-[25rem] w-full bg-[#171717] flex flex-col items-center justify-center overflow-hidden rounded-md">
+    <div className="h-[25rem] w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
       <h1 className="md:text-7xl text-3xl lg:text-4xl font-bold text-center text-white relative z-10">
         Dedicated Team members of Clipsync
       </h1>
@@ -54,7 +54,7 @@ function Instructors() {
           className="w-full h-full"
           particleColor="#FFFFFF"
         />
-        <div className="absolute inset-0 w-full h-full bg-[#171717] [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)] "></div>
+        <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)] "></div>
         <div className="flex flex-row items-center justify-center mb-10 w-full">
           <AnimatedTooltip items={instructors} />
         </div>

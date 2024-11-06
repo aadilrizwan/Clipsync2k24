@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="bg-[#171717] text-aqua-400 py-12">
+    <footer className="bg-black text-aqua-400 py-12">
       <div
         className="max-w-6xl mx-auto grid grid-cols-1
      sm:grid-cols-2 lg:grid-cols-4 
@@ -8,7 +8,7 @@ function Footer() {
       >
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">About Us</h2>
-          <p>
+          <p className="text-white">
             ClipSync is a video messaging platform designed for asynchronous
             communication, particularly in work environments. It allows users to
             quickly create and share videos by recording their screen, webcam,
@@ -21,7 +21,7 @@ function Footer() {
             <li>
               <a
                 href=""
-                className="hover:text-aqua transition-colors duration-300"
+                className="hover:text-aqua transition-colors duration-300 text-white"
               >
                 Home
               </a>
@@ -29,7 +29,7 @@ function Footer() {
             <li>
               <a
                 href=""
-                className="hover:text-aqua transition-colors duration-300"
+                className="hover:text-aqua transition-colors duration-300 text-white"
               >
                Docs
               </a>
@@ -37,7 +37,7 @@ function Footer() {
             <li>
               <a
                 href=""
-                className="hover::text-aqua transition-colors duration-300"
+                className="hover::text-aqua transition-colors duration-300 text-white"
               >
                 Pricing
               </a>
@@ -45,7 +45,7 @@ function Footer() {
             <li>
               <a
                 href=""
-                className="hover:text-aqua transition-colors duration-300"
+                className="hover:text-aqua transition-colors duration-300 text-white"
               >
                 Contact
               </a>
@@ -57,19 +57,19 @@ function Footer() {
           <div className="flex space-x-4">
             <a
               href=""
-              className="hover:text-aqua transition-colors duration-300"
+              className="hover:text-aqua transition-colors duration-300 text-white"
             >
               Youtube
             </a>
             <a
               href=""
-              className="hover:text-aqua transition-colors duration-300"
+              className="hover:text-aqua transition-colors duration-300 text-white"
             >
               Instagram
             </a>
             <a
               href=""
-              className="hover:text-aqua transition-colors duration-300"
+              className="hover:text-aqua transition-colors duration-300 text-white"
             >
               Twitter
             </a>
@@ -77,10 +77,10 @@ function Footer() {
         </div>
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">Contact Us</h2>
-          <p>Allahabad,India</p>
-          <p>Allahabd, 211004</p>
-          <p>Email:clip.sync@2k24@gmail.com</p>
-          <p>phone: +91 1234567890</p>
+          <p className="text-white">Allahabad,India</p>
+          <p className="text-white">Allahabd, 211004</p>
+          <p className="text-white">Email:clip.sync@2k24@gmail.com</p>
+          <p className="text-white">phone: +91 1234567890</p>
         </div>
       </div>
       <p className="text-center mt-10 text-xs">

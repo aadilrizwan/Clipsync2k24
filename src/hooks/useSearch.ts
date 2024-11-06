@@ -38,10 +38,10 @@ export const useSearch = (key: string, type: "USERS") => {
         const users = await searchUsers(queryKey[1] as string);
         if (users.status === 200) {
           setOnUsers(users.data);
-          return users.data; // Ensure the function returns data
+          return users.data;
         }
       }
-      return null; // Return null if no data
+      return null;
     },
     false
   );

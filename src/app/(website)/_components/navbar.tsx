@@ -19,14 +19,11 @@ const LandingPageNavBar = ({ className }: Props) => {
 
   return (
     <div className={cn("flex w-full justify-between items-center fixed top-10 inset-x-0 px-8 max-w-6xl mx-auto z-50", className)}>
-      {/* Left section: Logo and site title */}
       <div className="flex items-center gap-x-3">
         <Image alt="logo" src="/logo.png" width={59} height={59} className="rounded-full" />
-        <span className="text-3xl font-semibold">ClipSync</span>
+        <span className="text-3xl font-semibold text-white">ClipSync</span>
       </div>
-
-      {/* Middle section: Desktop Menu links */}
-      <div className="hidden md:flex gap-x-6">
+      <div className="hidden md:flex gap-x-6 text-white">
         <MenuComponent setActive={setActive}>
           <Link href="/">
             <MenuItem setActive={setActive} active={active} item="Home" />
@@ -45,16 +42,12 @@ const LandingPageNavBar = ({ className }: Props) => {
           </Link>
         </MenuComponent>
       </div>
-
-      {/* Right section: Login button for desktop */}
       <Link href="/auth/sign-in" className="hidden md:block">
         <Button className="text-base flex gap-x-2">
           <User fill="#000" />
           Login
         </Button>
       </Link>
-
-      {/* Mobile menu toggle button */}
       <button
         className="md:hidden text-gray-700 dark:text-gray-300"
         onClick={toggleMobileMenu}

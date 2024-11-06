@@ -9,7 +9,6 @@ type Props = {
 }
 
 const GlobalHeader = ({ workspace }: Props) => {
-  //Pathname
   const pathName = usePathname().split(`/dashboard/${workspace.id}`)[1]
   return (
     <article className="flex flex-col gap-2">
@@ -21,7 +20,7 @@ const GlobalHeader = ({ workspace }: Props) => {
           ? pathName.charAt(1).toUpperCase() + pathName.slice(2).toLowerCase()
           : pathName.includes('video')
           ? ''
-          : 'My Library'}
+          : 'My ClipVault'}
       </h1>
     </article>
   )

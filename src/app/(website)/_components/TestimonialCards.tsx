@@ -40,7 +40,7 @@ const hadith = [
 function Feedback() {
   return (
     <div
-      className="h-[40rem] w-full dark:bg-[#171717]
+      className="h-[40rem] w-full dark:bg-black
     dark:bg-grid-white/[0.2] relative flex flex-col
     items-center jusify-center overflow-hidden "
     >

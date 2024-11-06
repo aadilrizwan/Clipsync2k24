@@ -39,21 +39,21 @@ const Page = async ({ params }: Props) => {
           <div className="flex w-full justify-between items-center">
             <TabsList className="bg-transparent gap-2 pl-0">
               <TabsTrigger
-                className="p-[13px] px-6 rounded-full data-[state=active]:bg-[#252525]"
+                className="p-[13px] px-6 rounded-full text-black bg-white data-[state=active]:text-white data-[state=active]:bg-black"
                 value="videos"
               >
                 Videos
               </TabsTrigger>
               <TabsTrigger
                 value="archive"
-                className="p-[13px] px-6 rounded-full data-[state=active]:bg-[#252525]"
+                className="p-[13px] px-6 rounded-full text-black bg-white data-[state=active]:text-white data-[state=active]:bg-black"
               >
                 Archive
               </TabsTrigger>
             </TabsList>
             <div className="flex gap-x-3">
-              <CreateWorkspace />
-              <CreateForlders workspaceId={workspaceId} />
+              {/* <CreateWorkspace />
+              <CreateForlders workspaceId={workspaceId} /> */}
             </div>
           </div>
           <section className="py-9">

@@ -40,7 +40,7 @@ const SettingsPage = () => {
           <div
             className={cn(
               'rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent',
-              theme == 'system' && 'border-purple-800'
+              theme == 'system' && 'border-blue-800'
             )}
             onClick={() => setTheme('system')}
           >
@@ -49,7 +49,7 @@ const SettingsPage = () => {
           <div
             className={cn(
               'rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent',
-              theme == 'light' && 'border-purple-800'
+              theme == 'light' && 'border-blue-800'
             )}
             onClick={() => setTheme('light')}
           >
@@ -58,7 +58,7 @@ const SettingsPage = () => {
           <div
             className={cn(
               'rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent',
-              theme == 'dark' && 'border-purple-800'
+              theme == 'dark' && 'border-blue-800'
             )}
             onClick={() => setTheme('dark')}
           >
@@ -66,7 +66,7 @@ const SettingsPage = () => {
           </div>
         </div>
       </div>
-      <h2 className="text-2xl font-bold mt-4">Video Sharing Settings</h2>
+      <h2 className="text-2xl font-bold mt-4 text-white dark:text-blue-700">Video Sharing Settings</h2>
       <p className="text-muted-foreground">
         Enabling this feature will send you notifications when someone watched
         your video for the first time. This feature can help during client
