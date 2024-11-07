@@ -342,7 +342,9 @@ export const getPreviewVideo = async (videoId: string) => {
 
 export const sendEmailForFirstView = async (videoId: string) => {
   try {
-    const user = await currentUser()
+    //bug
+    const user = await currentUser()  
+    //
     if (!user) return { status: 404 }
     const firstViewSettings = await client.user.findUnique({
       where: { clerkid: user.id },
