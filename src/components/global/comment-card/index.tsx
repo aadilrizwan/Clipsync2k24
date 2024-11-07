@@ -36,8 +36,8 @@ const CommentCard = ({
     <Card
       className={cn(
         isReply
-          ? "bg-[#1D1D1D] pl-10 border-none shadow-none"
-          : "border-[1px] bg-[#1D1D1D] p-5 shadow-none",
+          ? "dark:bg-[#1D1D1D] pl-10 border-none shadow-none"
+          : "border-[3px] dark:bg-[#1D1D1D] p-5 shadow-none",
         "relative"
       )}
     >
@@ -45,7 +45,7 @@ const CommentCard = ({
         <Avatar>
           <AvatarImage src={author.image} alt="author" />
         </Avatar>
-        <p className="capitalize text-sm text-[#BDBDBD] flex">
+        <p className="capitalize text-sm dark:text-[#BDBDBD] flex">
           {author.firstname} {author.lastname}{" "}
         </p>
         <div className="flex items-center gap-[0]">
@@ -56,7 +56,7 @@ const CommentCard = ({
         </div>
       </div>
       <div>
-        <p className="text-[#BDBDBD]">{comment}</p>
+        <p className="dark:text-[#BDBDBD]">{comment}</p>
       </div>
       {!isReply && (
         <div className="flex justify-end mt-3 ">

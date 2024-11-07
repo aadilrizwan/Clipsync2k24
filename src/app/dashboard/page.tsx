@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 type Props = {};
 
 const DasboardPage = async (props: Props) => {
-  //Authentication of user
   const auth = await onAuthenticateUser();
   if (auth.status === 200 || auth.status === 201)
     return redirect(`/dashboard/${auth.user?.workspace[0].id}`);

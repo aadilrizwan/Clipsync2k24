@@ -63,9 +63,9 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
       </div>
       <div
         onClick={toggleDropdown}
-        className="flex justify-center items-center mt-10 cursor-pointer"
+        className="flex justify-center items-center mt-16 cursor-pointer"
       >
-        <button className="flex items-center px-4 py-2 bg-white dark:bg-black rounded-full shadow-lg hover:shadow-xl hover:shadow-blue-500/50 transition duration-300">
+        <button className="flex items-center px-4 py-2 bg-white dark:bg-black rounded-3xl shadow-lg hover:shadow-xl hover:shadow-blue-500/50 transition duration-300 border">
           <span className="mr-2">
             <Pluss />
           </span>
@@ -76,23 +76,23 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
       {dropdownOpen && (
         <div className="mt-6 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg">
           <ul className="py-2">
-            <li className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
+            <li className="px-4 py-2 cursor-pointer">
               {" "}
-              <Button className="bg-black flex items-center gap-2 rounded-xl">
+              <Button className="bg-black flex items-center gap-2 rounded-xl w-full h-full dark:text-white">
                 <VideoRecorderIcon />
-                <span className="flex items-center gap-2 dark:text-white">Record</span>
+                <span className="flex items-center gap-2">Record</span>
               </Button>
             </li>
-            <li className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
-              <Button className="bg-black flex items-center gap-2 rounded-xl">
+            <li className="px-4 py-2 cursor-pointer">
+              <Button className="bg-black flex items-center gap-2 rounded-xl w-full h-full dark:text-white">
                 <UploadIcon size={20} />{" "}
-                <span className="flex items-center gap-2 dark:text-white">Upload</span>
+                <span className="flex items-center gap-2">Upload</span>
               </Button>
             </li>
-            <li className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
-              <CreateForlders workspaceId={""} />
+            <li className="px-4 py-2 cursor-pointer">
+              <CreateForlders workspaceId={activeWorkspaceId} />
             </li>
-            <li className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
+            <li className="px-4 py-2 cursor-pointer">
               <CreateWorkspace />
             </li>
           </ul>
@@ -130,12 +130,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
   );
   return (
     <div className="full">
-      <InfoBar
-        activeWorkspaceId={""}
-        params={{
-          workspaceId: "",
-        }}
-      />
+      <InfoBar activeWorkspaceId = {activeWorkspaceId}/>
       <div className="md:hidden fixed my-4">
         <Sheet>
           <SheetTrigger asChild className="ml-2">

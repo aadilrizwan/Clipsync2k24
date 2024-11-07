@@ -29,7 +29,6 @@ export type FoldersProps = {
 
 const Folders = ({ workspaceId }: Props) => {
   const dispatch = useDispatch();
-  //get folders
   const { data, isFetched } = useQueryData(["workspace-folders"], () =>
     getWorkspaceFolders(workspaceId)
   );
@@ -46,17 +45,13 @@ const Folders = ({ workspaceId }: Props) => {
       <div className="flex items-center  justify-between">
         <div className="flex items-center gap-4">
           <FolderDuotone />
-          <h2 className="text-[#BDBDBD] text-xl"> Folders</h2>
-        </div>
-        <div className="flex items-center gap-2">
-          <p className="text-[#BDBDBD]">See all</p>
-          <ArrowRight color="#707070" />
+          <h2 className="dark:text-[#BDBDBD] text-xl"> Folders</h2>
         </div>
       </div>
       <div
         className={cn(
           status !== 200 && "justify-center",
-          "flex items-center gap-4 overflow-x-auto w-full"
+          "flex items-center gap-4 overflow-x-auto w-full flex-wrap"
         )}
       >
         {status !== 200 ? (

@@ -23,7 +23,7 @@ type Props = {
   title: string | null
   source: string
   processing: boolean
-  workspaceId: string
+  workspaceId?: string
 }
 
 const VideoCard = (props: Props) => {
@@ -37,7 +37,7 @@ const VideoCard = (props: Props) => {
       // state={props.processing}
       state={false}   //TODO: comment this later (Testing purpose)
     >
-      <div className=" group overflow-hidden cursor-pointer bg-[#171717] relative border-[1px] border-[#252525] flex flex-col rounded-xl">
+      <div className=" group overflow-hidden cursor-pointer dark:bg-[#171717] bg-gray-300 relative border-[1px] border-[#252525] flex flex-col rounded-xl">
         <div className="absolute top-3 right-3 z-50 gap-x-3 hidden group-hover:flex">
           <CardMenu
             currentFolderName={props.Folder?.name}
@@ -46,13 +46,13 @@ const VideoCard = (props: Props) => {
             currentFolder={props.Folder?.id}
           />
           <CopyLink
-            className="p-[5px] h-5 bg-hover:bg-transparent bg-[#252525]"
+            className="p-[5px] h-5 dark:bg-[#252525] bg-transparent hover:bg-transparent "
             videoId={props.id}
           /> 
         </div>
         <Link
           href={`/dashboard/${props.workspaceId}/video/${props.id}`}
-          className="hover:bg-[#252525] transition duration-150 flex flex-col justify-between h-full"
+          className="dark:hover:bg-[#252525] transition duration-150 flex flex-col justify-between h-full"
         >
           <video
             controls={false}
@@ -64,7 +64,7 @@ const VideoCard = (props: Props) => {
             />
           </video>
           <div className="px-5 py-3 flex flex-col gap-y-2 z-20">
-            <h2 className="text-sm font-semibold text-[#BDBDBD]">
+            <h2 className="text-sm font-semibold dark:text-[#BDBDBD]">
               {props.title}
             </h2>
             <div className="flex gap-x-2 items-center mt-4">
@@ -75,10 +75,10 @@ const VideoCard = (props: Props) => {
                 </AvatarFallback>
               </Avatar>
               <div>
-                <p className="capitalize text-xs text-[#BDBDBD]">
+                <p className="capitalize text-xs dark:text-[#BDBDBD]">
                   {props.User?.firstname} {props.User?.lastname}
                 </p>
-                <p className="text-[#6d6b6b]  text-xs flex items-center ">
+                <p className="dark:text-[#6d6b6b]  text-xs flex items-center ">
                   <Dot /> {daysAgo === 0 ? 'Today' : `${daysAgo}d ago`}
                 </p>
               </div>
@@ -87,10 +87,10 @@ const VideoCard = (props: Props) => {
               <span className="flex gap-x-1 items-center">
                 <Share2
                   fill="#9D9D9D"
-                  className="text-[#9D9D9D]"
+                  className="dark:text-[#9D9D9D]"
                   size={12}
                 />
-                <p className="text-xs text-[#9D9D9D] capitalize">
+                <p className="text-xs dark:text-[#9D9D9D] capitalize">
                   {props.User?.firstname}{`'s`} Workspace
                 </p>
               </span>

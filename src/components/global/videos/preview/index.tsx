@@ -48,13 +48,13 @@ const VideoPreview = ({ videoId }: Props) => {
       <div className="flex flex-col lg:col-span-2 gap-y-10">
         <div>
           <div className="flex gap-x-5 items-start justify-between">
-            <h2 className="text-white text-4xl font-bold">{video.title}</h2>
+            <h2 className="dark:text-white text-4xl font-bold">{video.title}</h2>
           </div>
           <span className="flex gap-x-3 mt-2">
-            <p className="text-[#9D9D9D] capitalize">
+            <p className="dark:text-[#9D9D9D] capitalize">
               {video.User?.firstname} {video.User?.lastname}
             </p>
-            <p className="text-[#707070]">
+            <p className="dark:text-[#707070]">
               {daysAgo === 0 ? "Today" : `${daysAgo}d ago`}
             </p>
           </span>
@@ -70,9 +70,9 @@ const VideoPreview = ({ videoId }: Props) => {
         </video>
         <div className="flex flex-col text-2xl gap-y-4">
           <div className="flex gap-x-5 items-center justify-between">
-            <p className="text-[#BDBDBD] text-semibold">Description</p>
+            <p className="dark:text-[#BDBDBD] text-semibold">Description</p>
           </div>
-          <p className="text-[#9D9D9D] text-lg text-medium">
+          <p className="dark:text-[#9D9D9D] text-lg text-medium">
             {video.description}
           </p>
         </div>

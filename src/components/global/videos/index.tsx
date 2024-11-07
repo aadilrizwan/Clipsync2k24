@@ -14,12 +14,17 @@ type Props = {
 }
 
 const Videos = ({ folderId, videosKey, workspaceId }: Props) => {
+
+  // console.log(folderId, workspaceId)
   
   const { data: videoData } = useQueryData([videosKey], () =>
     getAllUserVideos(folderId)
   )
 
+  // console.log(videoData)
+
   const { status: videosStatus, data: videos } = videoData as VideosProps
+  // console.log(videosStatus)
 
   return (
     <div className="flex flex-col gap-4 mt-4">
@@ -45,7 +50,7 @@ const Videos = ({ folderId, videosKey, workspaceId }: Props) => {
             />
           ))
         ) : (
-          <p className="text-[#BDBDBD]"> No videos in workspace</p>
+          <p className="text-[#BDBDBD] text-center"> No videos in workspace</p>
         )}
       </section>
     </div>

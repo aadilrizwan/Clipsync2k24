@@ -14,6 +14,7 @@ import {
 import CreateWorkspace from "@/components/global/create-workspace";
 import CreateForlders from "@/components/global/create-folders";
 import Folders from "@/components/global/folders";
+import VideoSection from "@/components/global/videoSection";
 
 type Props = {
   params: { workspaceId: string };
@@ -30,6 +31,11 @@ const Page = async ({ params }: Props) => {
 
   await query.prefetchQuery({
     queryKey: ["user-videos"],
+    queryFn: () => getAllUserVideos(workspaceId),
+  });
+
+  await query.prefetchQuery({
+    queryKey: ["videos"],
     queryFn: () => getAllUserVideos(workspaceId),
   });
   return (
@@ -59,6 +65,7 @@ const Page = async ({ params }: Props) => {
           <section className="py-9">
             <TabsContent value="videos">
               <Folders workspaceId={workspaceId} />
+              <VideoSection workspaceId={workspaceId} />
             </TabsContent>
           </section>
         </Tabs>

@@ -98,7 +98,10 @@ export const getAllUserVideos = async (workSpaceId: string) => {
       },
     });
 
+    // console.log(videos)
+
     if (videos && videos.length > 0) {
+      // console.log(videos)
       return { status: 200, data: videos };
     }
 

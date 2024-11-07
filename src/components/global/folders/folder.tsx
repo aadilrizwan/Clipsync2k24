@@ -26,7 +26,6 @@ const Folder = ({ id, name, optimistic, count }: Props) => {
   const Renamed = () => setOnRename(false)
 
 
-  //optimistic ways
   const { mutate, isPending } = useMutationData(
     ['rename-folders'],
     (data: { name: string }) => renameFolders(id, data.name),
@@ -44,7 +43,6 @@ const Folder = ({ id, name, optimistic, count }: Props) => {
   const handleNameDoubleClick = (e: React.MouseEvent<HTMLParagraphElement>) => {
     e.stopPropagation()
     Rename()
-    //Rename functionality
   }
 
   const updateFolderName = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -62,7 +60,7 @@ const Folder = ({ id, name, optimistic, count }: Props) => {
       ref={folderCardRef}
       className={cn(
         optimistic && 'opacity-60',
-        'flex hover:bg-neutral-800 cursor-pointer transition duration-150 items-center gap-2 justify-between min-w-[250px] py-4 px-4 rounded-lg  border-[2px]'
+        'flex hover:bg-neutral-800 hover:text-white cursor-pointer transition duration-150 items-center gap-2 justify-between min-w-[250px] py-4 px-4 rounded-lg  border-[2px]'
       )}
     >
       <Loader state={isPending}>
@@ -74,13 +72,13 @@ const Folder = ({ id, name, optimistic, count }: Props) => {
               }}
               autoFocus
               placeholder={name}
-              className="border-none text-base w-full outline-none text-neutral-300 bg-transparent p-0"
+              className="border-none text-base w-full outline-none dark:text-neutral-300 bg-transparent p-0"
               ref={inputRef}
             />
           ) : (
             <p
               onClick={(e) => e.stopPropagation()}
-              className="text-neutral-300"
+              className="dark:text-neutral-300"
               onDoubleClick={handleNameDoubleClick}
             >
               {latestVariables &&

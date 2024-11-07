@@ -11,7 +11,7 @@ type Props = {
 };
 
 const page = async ({ params }: Props) => {
-  const { folderId, workspaceId } = await params; // Await the params before using them
+  const { folderId, workspaceId } = await params;
 
   const query = new QueryClient();
   
