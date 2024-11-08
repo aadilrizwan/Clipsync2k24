@@ -2,6 +2,10 @@ import { app, BrowserWindow, desktopCapturer, ipcMain } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
+// app.disableHardwareAcceleration();
+// app.commandLine.appendSwitch('enable-logging');
+
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // The built directory structure
@@ -135,7 +139,7 @@ ipcMain.on('closeApp', () => {
 ipcMain.handle('getSources', async () => {
   const data = await desktopCapturer.getSources({
     thumbnailSize: {height: 100, width: 150},
-    types: ['screen', 'window'],
+    types: ['screen'],
     fetchWindowIcons: true
   })
   // console.log("Displays ", data)
@@ -143,12 +147,12 @@ ipcMain.handle('getSources', async () => {
 })
 
 ipcMain.on('media-sources', (event, payload) => {
-  console.log(event)
+  console.log(payload)
   studio?.webContents.send('profile-recieved', payload)
 })
 
 ipcMain.on('resize-studio', (event, payload) => {
-  console.log(event)
+  // console.log(event)
   if(payload.shrink){
     studio?.setSize(400, 100)
   }
@@ -158,7 +162,7 @@ ipcMain.on('resize-studio', (event, payload) => {
 })
 
 ipcMain.on('hide-plugin', (event, payload) => {
-  console.log(event)
+  // console.log(event)
   win?.webContents.send('hide-plugin', payload)
 })
 

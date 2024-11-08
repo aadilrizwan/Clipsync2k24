@@ -107,17 +107,16 @@ ipcMain.on("closeApp", () => {
 ipcMain.handle("getSources", async () => {
   const data = await desktopCapturer.getSources({
     thumbnailSize: { height: 100, width: 150 },
-    types: ["screen", "window"],
+    types: ["screen"],
     fetchWindowIcons: true
   });
   return data;
 });
 ipcMain.on("media-sources", (event, payload) => {
-  console.log(event);
+  console.log(payload);
   studio == null ? void 0 : studio.webContents.send("profile-recieved", payload);
 });
 ipcMain.on("resize-studio", (event, payload) => {
-  console.log(event);
   if (payload.shrink) {
     studio == null ? void 0 : studio.setSize(400, 100);
   }
@@ -126,7 +125,6 @@ ipcMain.on("resize-studio", (event, payload) => {
   }
 });
 ipcMain.on("hide-plugin", (event, payload) => {
-  console.log(event);
   win == null ? void 0 : win.webContents.send("hide-plugin", payload);
 });
 app.on("activate", () => {

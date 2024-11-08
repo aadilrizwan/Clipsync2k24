@@ -14,12 +14,13 @@ export const StartRecording = (onSources: {
   id: string;
 }) => {
     hidePluginWindow(true)
-    videoTransferFileName = `${uuid()}-${onSources?.id.slice(0, 8)}.webm`
+    videoTransferFileName = `${uuid()}-${onSources?.id.slice(0, 8)}`
     mediaRecorder.start(1000)
 };
 
 export const onStopRecording = () => mediaRecorder.stop();
 const stopRecording = () => {
+  // console.log("Hello")
   hidePluginWindow(false);
   socket.emit('process-video', {
     filename: videoTransferFileName,
@@ -29,6 +30,7 @@ const stopRecording = () => {
 
 export const onDataAvailable = (e: BlobEvent) => {
   // alert('running')
+  // console.log("❤️❤️ ", e.data)
   socket.emit('video-chunks', {
     chunks: e.data,
     filename: videoTransferFileName,
@@ -44,6 +46,7 @@ export const selectSources = async (
   },
   videoElement: React.RefObject<HTMLVideoElement>
 ) => {
+  // console.log("🎈 Inside select sources -> ", onSources)
   if(onSources && onSources.screen && onSources.audio && onSources.id){
     const constraints: any = {
       audio: false,
@@ -85,6 +88,6 @@ export const selectSources = async (
     })
 
     mediaRecorder.ondataavailable = onDataAvailable;
-    mediaRecorder.onstart = stopRecording;
+    mediaRecorder.onstop = stopRecording;  //bug
   }
 }

@@ -12,7 +12,7 @@ type Props = {
 const ControlLayout = ({ children, classname }: Props) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   window.ipcRenderer.on("hide-plugin", (event, payload) => {
-    console.log(event);
+    // console.log(event);
     setIsVisible(payload.state);
   });
   return (
@@ -30,7 +30,7 @@ const ControlLayout = ({ children, classname }: Props) => {
 
         <X
           size={20}
-          className="text-gray-400 hover:text-white cursor-pointer"
+          className="text-gray-400 hover:text-white cursor-pointer non-draggable"
           onClick={onCloseApp}
         />
       </div>

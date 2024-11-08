@@ -23,9 +23,9 @@ export const fetchUserProfile = async (clerkId: string) => {
 };
 
 export const getMediaSources = async () => {
-  console.log("Hello")
+  // console.log("Hello")
   const displays = await window.ipcRenderer.invoke("getSources");
-  console.log("Inside utils ", displays);
+  // console.log("Inside utils ", displays);
   const enumerateDevices =
     await window.navigator.mediaDevices.enumerateDevices();
 
@@ -33,7 +33,7 @@ export const getMediaSources = async () => {
     (device) => device.kind === "audioinput"
   );
 
-  console.log("Getting sources...");
+  // console.log("Getting sources...");
 
   return { displays, audio: audioInputs };
 };

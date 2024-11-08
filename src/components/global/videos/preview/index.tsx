@@ -13,6 +13,7 @@ import AiTools from "../../ai-tools";
 import VideoTranscript from "../../video-transcript";
 import { TabsContent } from "@/components/ui/tabs";
 import Activities from '../../activities'
+import EditVideo from "../edit";
 
 type Props = {
   videoId: string;
@@ -49,6 +50,15 @@ const VideoPreview = ({ videoId }: Props) => {
         <div>
           <div className="flex gap-x-5 items-start justify-between">
             <h2 className="dark:text-white text-4xl font-bold">{video.title}</h2>
+            {author ? (
+              <EditVideo
+                videoId={videoId}
+                title={video.title as string}
+                description={video.description as string}
+              />
+            ) : (
+              <></>
+            )}
           </div>
           <span className="flex gap-x-3 mt-2">
             <p className="dark:text-[#9D9D9D] capitalize">
@@ -71,6 +81,15 @@ const VideoPreview = ({ videoId }: Props) => {
         <div className="flex flex-col text-2xl gap-y-4">
           <div className="flex gap-x-5 items-center justify-between">
             <p className="dark:text-[#BDBDBD] text-semibold">Description</p>
+            {author ? (
+              <EditVideo
+                videoId={videoId}
+                title={video.title as string}
+                description={video.description as string}
+              />
+            ) : (
+              <></>
+            )}
           </div>
           <p className="dark:text-[#9D9D9D] text-lg text-medium">
             {video.description}

@@ -4,6 +4,7 @@ import { Cast, Pause, Square } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
 const StudioTray = () => {
+  // console.log("Inside studio tray")
   const [preview, setPreview] = useState(false);
   const [recording, setRecording] = useState(false);
   const [onTimer, setOnTimer] = useState<string>("00:00:00");
@@ -20,9 +21,12 @@ const StudioTray = () => {
       }
     | undefined
   >(undefined);
+  console.log("Printing data inside onSources ", onSources);
 
   window.ipcRenderer.on("profile-recieved", (event, payload) => {
     console.log(event);
+    console.log(payload);
+    // console.log("🎈 Inside select sources -> ", payload)
     setOnSources(payload);
   });
 
@@ -59,6 +63,8 @@ const StudioTray = () => {
       return () => {
     selectSources(onSources!, videoElement)}
   }, [onSources])
+
+  // console.log("🎈 Inside select sources -> ", onSources)
 
   return !onSources ? (
     <></>
