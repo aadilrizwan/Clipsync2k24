@@ -1,7 +1,9 @@
 import { CompareDemo } from "./_components/Comparecode";
 import Footer from "./_components/Footer";
+import { TypewriterEffectSmoothDemo } from "./_components/headingtabs";
 import HeroSection from "./_components/HeroSection";
 import Instructors from "./_components/Instructors";
+import { TabsDemo } from "./_components/tabsdemo";
 import Feedback from "./_components/TestimonialCards";
 export default function Home() {
   return (
@@ -10,6 +12,8 @@ export default function Home() {
     <Instructors/>
     <Feedback/>
     <CompareDemo/>
+    <TypewriterEffectSmoothDemo/>
+    <TabsDemo/>
     <Footer/>
     </main>
   );

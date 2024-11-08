@@ -24,13 +24,13 @@ const ControlLayout = ({ children, classname }: Props) => {
       )}
     >
       <div className="flex justify-between items-center p-5 draggable">
-        <span >
+        <span className="non-draggable">
           <UserButton />
         </span>
 
         <X
           size={20}
-          className="text-gray-400 hover:text-white cursor-pointer non-draggable"
+          className="text-gray-400 non-draggable hover:text-white cursor-pointer"
           onClick={onCloseApp}
         />
       </div>

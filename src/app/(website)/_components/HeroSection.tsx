@@ -3,11 +3,12 @@ import { Spotlight } from "./ui/Spotlight";
 import { Button } from "./ui/moving-border";
 import { User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { TextGenerateEffect } from "./ui/text-generate-effect";
 
 type Props = {
   className?: string;
 };
-
+const words = `ClipSync is a video messaging platform designed for asynchronous communication, particularly in work environments. It allows users to quickly create and share videos by recording their screen, webcam, or both.`;
 const HeroSection = ({ className }: Props) => {
   return (
     <div
@@ -26,13 +27,10 @@ const HeroSection = ({ className }: Props) => {
           Clip Sync
         </h1>
         <p
-          className="mt-4 font-normal text-base md:text-lg
-         text-neutral-300 max-w-lg mx-auto"
+          className="mt-4 font-normal text-base md:text-lg text-yellow-300
+         max-w-lg mx-auto"
         >
-          ClipSync is a video messaging platform designed for asynchronous
-          communication, particularly in work environments. It allows users to
-          quickly create and share videos by recording their screen, webcam, or
-          both.
+          <TextGenerateEffect words={words} />
         </p>
 
         <div className="mt-4">
