@@ -108,6 +108,7 @@ ipcMain.handle("getSources", async () => {
   const data = await desktopCapturer.getSources({
     thumbnailSize: { height: 100, width: 150 },
     types: ["screen"],
+    // types: ['screen', 'window'],
     fetchWindowIcons: true
   });
   return data;

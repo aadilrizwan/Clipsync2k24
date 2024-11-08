@@ -1,3 +1,4 @@
+import VoiceFlowAgent from "@/components/global/voiceflow";
 import { CompareDemo } from "./_components/Comparecode";
 import Footer from "./_components/Footer";
 import { TypewriterEffectSmoothDemo } from "./_components/headingtabs";
@@ -15,6 +16,7 @@ export default function Home() {
     <TypewriterEffectSmoothDemo/>
     <TabsDemo/>
     <Footer/>
+    <VoiceFlowAgent/>
     </main>
   );
 }

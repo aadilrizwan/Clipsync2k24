@@ -10,6 +10,7 @@ const Layout = ({ children }: Props) => {
     <div className="flex flex-col py-9 px-9 xl:px-20 bg-black w-full">
       <LandingPageNavBar />
       {children}
+      
     </div>
   );
 };
