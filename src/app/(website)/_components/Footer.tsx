@@ -59,13 +59,13 @@ function Footer() {
               href=""
               className="hover:text-aqua transition-colors duration-300 text-white"
             >
-              Youtube
+              Github
             </a>
             <a
               href=""
               className="hover:text-aqua transition-colors duration-300 text-white"
             >
-              Instagram
+              Linkedln
             </a>
             <a
               href=""

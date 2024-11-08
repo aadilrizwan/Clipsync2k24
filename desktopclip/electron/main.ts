@@ -135,7 +135,8 @@ ipcMain.on('closeApp', () => {
 ipcMain.handle('getSources', async () => {
   const data = await desktopCapturer.getSources({
     thumbnailSize: {height: 100, width: 150},
-    types: ['screen', 'window'],
+    types: ['screen'],
+    // types: ['screen', 'window'],
     fetchWindowIcons: true
   })
   // console.log("Displays ", data)
