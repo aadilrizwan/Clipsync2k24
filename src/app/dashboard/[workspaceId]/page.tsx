@@ -64,7 +64,7 @@ const Page = async ({ params }: Props) => {
           </div>
           <section className="py-9">
             <TabsContent value="videos">
-              <Folders workspaceId={workspaceId} />
+              <Folders workspaceId={workspaceId} />0
               <VideoSection workspaceId={workspaceId} />
             </TabsContent>
           </section>

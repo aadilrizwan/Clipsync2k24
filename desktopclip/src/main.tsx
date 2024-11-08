@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom/client'
 import {ClerkProvider} from '@clerk/clerk-react'
 import App from './App.tsx'
 import './index.css'
+import { toast } from 'sonner'
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
 if(!PUBLISHABLE_KEY){
+  toast.error("Missing publishable key in main");
   throw new Error("Missing publishable key")
 }
 
@@ -18,7 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     >
     <App />
     </ClerkProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
 
 // Use contextBridge

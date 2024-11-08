@@ -2,7 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 export const useSubscription = () => {
-  const [isProcessing, setIsProcessing] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false);
   const onSubscribe = async () => {
     setIsProcessing(true)
     try {

@@ -8,6 +8,7 @@ import Widget from './components/Global/Widget'
 const client = new QueryClient()
 function App() {
   return (
+
 <QueryClientProvider client={client}>
   <ControlLayout>
     <AuthButton />
