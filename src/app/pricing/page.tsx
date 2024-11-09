@@ -1,8 +1,11 @@
 "use client";
-import PaymentButton from "@/components/global/payment-button";
-import React, { useState } from "react";
+import React  from "react";
+import { Button } from "../(website)/_components/ui/moving-border";
+import { useSubscription } from "@/hooks/useSubscription";
 
 const Pricing = () => {
+
+  const { onSubscribe } = useSubscription()
   return (
     <section className="py-10 bg-white sm:py-16 lg:py-24">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -324,11 +327,11 @@ const Pricing = () => {
                   </a>
                 </td>
 
+                {/* task */}
                 <td className="px-4 py-6 text-center text-white bg-yellow-500 rounded-b-xl">
-                  <a
-                    href="/payment"
-                    title=""
-                    className="inline-flex items-center font-semibold text-white"
+                  <Button
+                  className="text-sm w-full "
+                  onClick={onSubscribe}
                   >
                     Get Started
                     <svg
@@ -343,7 +346,7 @@ const Pricing = () => {
                         clip-rule="evenodd"
                       ></path>
                     </svg>
-                  </a>
+                  </Button>
                 </td>
 
                 <td className="px-4 py-6 text-center">

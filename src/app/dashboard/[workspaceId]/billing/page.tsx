@@ -19,6 +19,9 @@ const BillingPage = async (props: Props) => {
         </h2>
         <p className="text-[#9D9D9D]">{payment?.data?.subscription?.plan}</p>
       </div>
+
+      <a href='/pricing' className='text-pink-600 text-3xl border-2 rounded-md p-2 w-fit bg-pink-300 
+      shadow-[0_0_15px_10px_rgba(232,207,205,1)]'>Explore More About Prices</a>
     </div>
   )
 }
