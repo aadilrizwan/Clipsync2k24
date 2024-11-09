@@ -14,7 +14,7 @@ export const StartRecording = (onSources: {
   id: string;
 }) => {
     hidePluginWindow(true)
-    videoTransferFileName = `${uuid()}-${onSources?.id.slice(0, 8)}`
+    videoTransferFileName = `${uuid()}-${onSources?.id.slice(0, 8)}.webm`
     mediaRecorder.start(1000)
 };
 

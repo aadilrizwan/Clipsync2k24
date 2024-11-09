@@ -57,31 +57,43 @@ io.on("connection", (socket) => {
 
     try {
       const file = await fsp.readFile(filePath);
-
-      const processingResponse = await axios.post(
-        `${process.env.NEXT_API_HOST}recording/${data.userId}/processing`,
-        { filename: data.filename }
-      );
-
-      if (processingResponse.data.status !== 200) {
-        return console.error("Error creating the processing file");
-      }
+      // console.log(data);
 
       const uploadResult = await cloudinary.uploader.upload(filePath, {
         resource_type: "video",
         public_id: `uploads/${data.filename}`,
       });
+      const processingResponse = await axios.post(
+        `${process.env.NEXT_API_HOST}recording/${data.userId}/processing`,
+        { filename: uploadResult.secure_url }
+      );
+      if (processingResponse.data.status !== 200) {
+        return console.error("Error creating the processing file");
+      }
 
       console.log("Video uploaded to Cloudinary:", uploadResult.secure_url);
 
       if (processingResponse.data.plan === "PRO") {
+        // console.log("Inside Pro");
         const stat = await fsp.stat(filePath);
+
+        console.log("STAT: ", stat);
+
         if (stat.size < 25000000) {
-          const transcription = await openai.audio.transcriptions.create({
-            file: fs.createReadStream(filePath),
-            model: "whisper-1",
-            response_format: "text",
-          });
+          console.log("Size OK");
+
+          try {
+            const transcription = await openai.audio.transcriptions.create({
+              file: fs.createReadStream(filePath),
+              model: "whisper-1",
+              response_format: "text",
+            });
+          } catch (err) {
+            console.error("Error transcribing the audio:", err);
+            return;
+          }
+
+          console.log("Transcription Done");
 
           if (transcription) {
             const completion = await openai.chat.completions.create({

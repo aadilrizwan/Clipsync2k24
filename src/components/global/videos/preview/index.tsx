@@ -26,6 +26,8 @@ const VideoPreview = ({ videoId }: Props) => {
     getPreviewVideo(videoId)
   );
 
+  console.log("Data from Preview ", data)
+
   const notifyFirstView = async () => await sendEmailForFirstView(videoId)
 
   const { data: video, status, author } = data as VideoProps;
@@ -43,6 +45,8 @@ const VideoPreview = ({ videoId }: Props) => {
       notifyFirstView()
     }
   }, [])
+
+  console.log("Video URL ", video.source)
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 lg:py-10 overflow-y-auto gap-5">
@@ -70,12 +74,12 @@ const VideoPreview = ({ videoId }: Props) => {
           </span>
         </div>
         <video
-          preload="metadata"
-          className="w-full aspect-video opacity-50 rounded-xl"
+          preload="auto"
+          className="w-full aspect-video rounded-xl"
           controls
         >
           <source
-            src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL}/${video.source}#1`}
+            src={video.source}
           />
         </video>
         <div className="flex flex-col text-2xl gap-y-4">
