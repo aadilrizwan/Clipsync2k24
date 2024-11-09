@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.0.2",
+    "@emailjs/browser": "^4.4.1",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^5.21.1",
