@@ -79,7 +79,7 @@ const VideoPreview = ({ videoId }: Props) => {
           controls
         >
           <source
-            src={video.source}
+            src={`${video.source}#t=1`}
           />
         </video>
         <div className="flex flex-col text-2xl gap-y-4">

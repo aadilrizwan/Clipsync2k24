@@ -11,7 +11,7 @@ export async function POST(
   const completeProcessing = await client.video.update({
     where: {
       userId: id,
-      source: body.filename,
+      source: body.videoUrl,
     },
     data: {
       processing: false,

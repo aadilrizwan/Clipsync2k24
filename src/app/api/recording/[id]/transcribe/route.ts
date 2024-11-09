@@ -14,7 +14,7 @@ export async function POST(
   const transcribed = await client.video.update({
     where: {
       userId: id,
-      source: body.filename,
+      source: body.videoUrl,
     },
     data: {
       title: content.title,
@@ -52,7 +52,7 @@ export async function POST(
     const updateKB = await axios.request(options)
 
     if (updateKB.status === 200 || updateKB.status !== 200) {
-      console.log(updateKB.data)
+      console.log("Knowledge base: ", updateKB.data)
       return NextResponse.json({ status: 200 })
     }
   }

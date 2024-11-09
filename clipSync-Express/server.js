@@ -81,9 +81,9 @@ io.on("connection", (socket) => {
 
         if (stat.size < 25000000) {
           console.log("Size OK");
-
+          let transcription;
           try {
-            const transcription = await openai.audio.transcriptions.create({
+            transcription = await openai.audio.transcriptions.create({
               file: fs.createReadStream(filePath),
               model: "whisper-1",
               response_format: "text",
@@ -96,6 +96,9 @@ io.on("connection", (socket) => {
           console.log("Transcription Done");
 
           if (transcription) {
+
+            console.log("Transcription: ",transcription);
+
             const completion = await openai.chat.completions.create({
               model: "gpt-3.5-turbo",
               messages: [
@@ -105,25 +108,41 @@ io.on("connection", (socket) => {
                 },
               ],
             });
+            
+            console.log("Completion Done: ",completion);
+            console.log("Testing :",completion.choices[0].message.content);
 
-            await axios.post(
-              `${process.env.NEXT_API_HOST}recording/${data.userId}/transcribe`,
-              {
-                filename: data.filename,
-                content: completion.choices[0].message.content,
-                transcript: transcription,
-              }
-            );
+            try {
+              await axios.post(
+                `${process.env.NEXT_API_HOST}recording/${data.userId}/transcribe`,
+                {
+                  videoUrl: uploadResult.secure_url,
+                  filename: data.filename,
+                  content: completion.choices[0].message.content,
+                  transcript: transcription,
+                }
+              );
+            } catch (error) {
+              console.error("Error in transcribe request:", error.response?.data || error.message);
+            }
+
+            console.log("After Axios transcribe");
+
           }
         }
       }
 
+      console.log("Before completeResponse");
+
       const completeResponse = await axios.post(
         `${process.env.NEXT_API_HOST}recording/${data.userId}/complete`,
         {
+          videoUrl: uploadResult.secure_url,
           filename: data.filename,
         }
       );
+
+      console.log("After CompleteResponse");
 
       if (completeResponse.data.status === 200) {
         await fsp.unlink(filePath);
@@ -135,6 +154,8 @@ io.on("connection", (socket) => {
       console.error("Error processing video:", err);
     }
   });
+
+  console.log("Work Properly");
 
   socket.on("disconnect", () => {
     console.log("Socket disconnected", socket.id);
