@@ -4,17 +4,11 @@ const Docs = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black p-6 md:p-12 text-white">
       <div className="max-w-4xl mx-auto bg-opacity-10 backdrop-blur-md rounded-lg overflow-hidden shadow-lg">
-        
-        {/* Header */}
         <header className="bg-gradient-to-r from-purple-700 via-blue-700 to-purple-700 py-6 px-8 shadow-lg rounded-t-lg">
           <h1 className="text-4xl font-extrabold text-white">ClipSync Documentation</h1>
           <p className="text-sm mt-2 text-gray-300">Your guide to using ClipSync effectively for video recording and Broadcasting</p>
         </header>
-
-        {/* Main Content */}
         <div className="p-8">
-          
-          {/* Table of Contents */}
           <section className="mb-8">
             <h2 className="text-2xl font-semibold border-b-2 border-purple-600 pb-2 mb-4">Table of Contents</h2>
             <ul className="space-y-2">
@@ -23,8 +17,6 @@ const Docs = () => {
               ))}
             </ul>
           </section>
-
-          {/* Content Sections */}
           {[
             {
               title: "Getting Started",
@@ -63,8 +55,6 @@ const Docs = () => {
               </ol>
             </div>
           ))}
-
-          {/* Extra Sections */}
           <section className="mb-8 p-4 bg-gray-800 bg-opacity-50 rounded-md shadow-md">
             <h3 className="text-xl font-semibold text-purple-400 mb-2">Sharing Video Links</h3>
             <p className="mb-2">Easily share videos with your team and clients:</p>
