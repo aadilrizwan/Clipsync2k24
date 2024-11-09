@@ -48,7 +48,7 @@ const Pricing = () => {
                     {" "}
                     Popular{" "}
                   </span>
-                  <p className="mt-6 text-6xl font-bold text-white  text-black">
+                  <p className="mt-6 text-6xl font-bold text-white text-black">
                     ₹5000
                   </p>
                   <p className="mt-2 text-base font-normal text-gray-200">
