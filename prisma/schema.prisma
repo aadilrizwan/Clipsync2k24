@@ -78,6 +78,7 @@ model WorkSpace {
   videos    Video[]
   members   Member[]
   invite    Invite[]
+  deleted   Boolean  @default(false)
 }
 
 model Folder {
@@ -87,6 +88,7 @@ model Folder {
   WorkSpace   WorkSpace? @relation(fields: [workSpaceId], references: [id])
   workSpaceId String?    @db.Uuid
   videos      Video[]
+  deleted     Boolean    @default(false)
 }
 
 model Video {
@@ -105,6 +107,7 @@ model Video {
   views       Int        @default(0)
   summery     String?
   Comment     Comment[]
+  deleted     Boolean    @default(false)
 }
 
 model Member {
