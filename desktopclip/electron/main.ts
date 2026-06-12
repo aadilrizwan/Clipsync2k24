@@ -39,7 +39,7 @@ function createWindow() {
     frame: false,
     transparent: true,
     alwaysOnTop: true,
-    focusable: false,
+    focusable: true,
     icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
     webPreferences: {
       nodeIntegration: false,
@@ -147,12 +147,12 @@ ipcMain.handle('getSources', async () => {
   return data;
 })
 
-ipcMain.on('media-sources', (event, payload) => {
+ipcMain.on('media-sources', (_event, payload) => {
   console.log(payload)
   studio?.webContents.send('profile-recieved', payload)
 })
 
-ipcMain.on('resize-studio', (event, payload) => {
+ipcMain.on('resize-studio', (_event, payload) => {
   // console.log(event)
   if(payload.shrink){
     studio?.setSize(400, 100)
@@ -162,7 +162,7 @@ ipcMain.on('resize-studio', (event, payload) => {
   }
 })
 
-ipcMain.on('hide-plugin', (event, payload) => {
+ipcMain.on('hide-plugin', (_event, payload) => {
   // console.log(event)
   win?.webContents.send('hide-plugin', payload)
 })
