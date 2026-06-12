@@ -17,7 +17,7 @@ import Folders from "@/components/global/folders";
 import VideoSection from "@/components/global/videoSection";
 
 type Props = {
-  params: { workspaceId: string };
+  params: Promise<{ workspaceId: string }>;
 };
 
 const Page = async ({ params }: Props) => {
@@ -41,18 +41,18 @@ const Page = async ({ params }: Props) => {
   return (
     <HydrationBoundary state={dehydrate(query)}>
       <div>
-        <Tabs defaultValue="videos" className="mt-6">
+        <Tabs defaultValue="videos" className="mt-2">
           <div className="flex w-full justify-between items-center">
-            <TabsList className="bg-transparent gap-2 pl-0">
+            <TabsList className="bg-neutral-900/30 border border-neutral-900/60 rounded-full p-1 gap-1 flex items-center h-auto">
               <TabsTrigger
-                className="p-[13px] px-6 rounded-full text-black bg-white data-[state=active]:text-white data-[state=active]:bg-black"
+                className="px-5 py-1.5 text-xs md:text-sm font-semibold rounded-full text-neutral-400 hover:text-neutral-200 bg-transparent data-[state=active]:bg-neutral-800/80 data-[state=active]:text-neutral-100 transition-all duration-200 shadow-none border border-transparent"
                 value="videos"
               >
                 Videos
               </TabsTrigger>
               <TabsTrigger
                 value="archive"
-                className="p-[13px] px-6 rounded-full text-black bg-white data-[state=active]:text-white data-[state=active]:bg-black"
+                className="px-5 py-1.5 text-xs md:text-sm font-semibold rounded-full text-neutral-400 hover:text-neutral-200 bg-transparent data-[state=active]:bg-neutral-800/80 data-[state=active]:text-neutral-100 transition-all duration-200 shadow-none border border-transparent"
               >
                 Archive
               </TabsTrigger>
@@ -62,8 +62,8 @@ const Page = async ({ params }: Props) => {
               <CreateForlders workspaceId={workspaceId} /> */}
             </div>
           </div>
-          <section className="py-9">
-            <TabsContent value="videos">
+          <section className="py-8">
+            <TabsContent value="videos" className="flex flex-col gap-10">
               <Folders workspaceId={workspaceId} />
               <VideoSection workspaceId={workspaceId} />
             </TabsContent>

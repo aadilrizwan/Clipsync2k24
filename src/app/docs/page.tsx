@@ -1,97 +1,176 @@
-import React from 'react';
+"use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import { ArrowLeft, BookOpen, ChevronRight, Settings, Users, Share2, Download, Monitor, ShieldAlert } from "lucide-react";
+
+const sections = [
+  {
+    id: "getting-started",
+    title: "Getting Started",
+    icon: BookOpen,
+    content: [
+      { step: "Step 1", text: "To get started with ClipSync, visit the landing page and sign up using your email or Google account." },
+      { step: "Step 2", text: "Once registered, log in to access your custom workspace dashboard and start recording." },
+    ],
+  },
+  {
+    id: "workspaces",
+    title: "Creating Workspaces",
+    icon: Settings,
+    content: [
+      { step: "Step 1", text: "Go to the Workspace section in the left sidebar and click 'Workspaces'." },
+      { step: "Step 2", text: "Click 'Create Workspace', enter a name and optional description, and configure visibility permissions." },
+      { step: "Step 3", text: "Add folders to structure and categorize your recording folders within workspaces." },
+    ],
+  },
+  {
+    id: "team-members",
+    title: "Adding Team Members",
+    icon: Users,
+    content: [
+      { step: "Step 1", text: "Select 'Invite Members' inside your workspace settings and enter their email address." },
+      { step: "Step 2", text: "Track pending invitations in the Team Members tab on your workspace dashboard." },
+      { step: "Step 3", text: "Manage roles, set permission scopes, or revoke workspace access for members." },
+    ],
+  },
+  {
+    id: "sharing",
+    title: "Sharing Video Links",
+    icon: Share2,
+    content: [
+      { step: "Step 1", text: "Click the share icon on any processed video to generate a secure sharing link." },
+      { step: "Step 2", text: "Choose between 'View-Only' or 'Comment/Edit' permission levels for the link recipient." },
+      { step: "Step 3", text: "Copy the link to your clipboard or check 'Notify Team Members' to distribute it." },
+    ],
+  },
+  {
+    id: "desktop-plugin",
+    title: "Desktop Plugin",
+    icon: Download,
+    content: [
+      { step: "Step 1", text: "Download the ClipSync Desktop Plugin from the settings page for Windows, Mac, or Linux." },
+      { step: "Step 2", text: "Launch the installer and follow the instructions to set up the plugin on your computer." },
+      { step: "Step 3", text: "Log in using your account credentials to access native screen and webcam recording controls." },
+    ],
+  },
+  {
+    id: "resolution",
+    title: "Selecting Resolution",
+    icon: Monitor,
+    content: [
+      { step: "Step 1", text: "Adjust the target recording resolution in the plugin toolbar options before recording." },
+      { step: "Step 2", text: "Select from 480p, 720p, 1080p, or high-definition 4K based on your subscription tier." },
+    ],
+  },
+  {
+    id: "pricing-plans",
+    title: "Plans and Pricing",
+    icon: ShieldAlert,
+    content: [
+      { step: "Free Plan", text: "Features limited recording time (5 min), basic link sharing, and up to 5 team members per workspace." },
+      { step: "Paid Plans", text: "Unlock extended recording times (up to 10 hours), advanced sharing, and unlimited workspaces with AI summaries." },
+    ],
+  }
+];
 
 const Docs = () => {
+  const [activeTab, setActiveTab] = useState("getting-started");
+
+  const activeSection = sections.find((s) => s.id === activeTab) || sections[0];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black p-6 md:p-12 text-white">
-      <div className="max-w-4xl mx-auto bg-opacity-10 backdrop-blur-md rounded-lg overflow-hidden shadow-lg">
-        <header className="bg-gradient-to-r from-purple-700 via-blue-700 to-purple-700 py-6 px-8 shadow-lg rounded-t-lg">
-          <h1 className="text-4xl font-extrabold text-white">ClipSync Documentation</h1>
-          <p className="text-sm mt-2 text-gray-300">Your guide to using ClipSync effectively for video recording and Broadcasting</p>
-        </header>
-        <div className="p-8">
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold border-b-2 border-purple-600 pb-2 mb-4">Table of Contents</h2>
-            <ul className="space-y-2">
-              {["Getting Started", "Creating Workspaces", "Adding Team Members", "Recording Videos", "Sharing Video Links", "Downloading the Desktop Plugin", "Selecting Resolution", "Plans and Pricing"].map((item) => (
-                <li key={item} className="text-lg hover:text-purple-400 cursor-pointer transition duration-300">{item}</li>
-              ))}
-            </ul>
-          </section>
-          {[
-            {
-              title: "Getting Started",
-              content: [
-                { step: "Sign Up", text: "To get started with ClipSync, visit the site and sign up using your email or Google account." },
-                { step: "Login", text: "Once registered, log in to access all features and start creating and sharing videos." },
-              ],
-            },
-            {
-              title: "Creating Workspaces",
-              content: [
-                { step: "Navigate to Workspaces", text: "Go to the Workspace section and select 'Workspaces'." },
-                { step: "Create a New Workspace", text: "Click 'Create Workspace' and enter the name and description, then set visibility options." },
-                { step: "Organize Folders", text: "Add folders to categorize content within workspaces." },
-                { step: "Edit or Delete", text: "Manage settings for each workspace as needed." },
-              ],
-            },
-            {
-              title: "Adding Team Members",
-              content: [
-                { step: "Invite Team Members", text: "Select 'Invite Members' and enter their email addresses." },
-                { step: "Manage Invitations", text: "Track pending invitations in the Team Members section." },
-                { step: "Edit Member Permissions", text: "Adjust roles or remove members as needed." },
-              ],
-            },
-          ].map((section, index) => (
-            <div key={index} className="mb-8 p-4 bg-gray-800 bg-opacity-50 rounded-md shadow-md">
-              <h3 className="text-xl font-semibold text-purple-400 mb-2">{section.title}</h3>
-              <ol className="list-decimal list-inside space-y-2">
-                {section.content.map((item, i) => (
-                  <li key={i} className="pl-2">
-                    <span className="font-bold">{item.step}: </span>
-                    {item.text}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ))}
-          <section className="mb-8 p-4 bg-gray-800 bg-opacity-50 rounded-md shadow-md">
-            <h3 className="text-xl font-semibold text-purple-400 mb-2">Sharing Video Links</h3>
-            <p className="mb-2">Easily share videos with your team and clients:</p>
-            <ol className="list-decimal list-inside space-y-2">
-              <li>Generate a Shareable Link and choose View-Only or Edit permissions.</li>
-              <li>Embed or Copy Link to share via email or other platforms.</li>
-              <li>Share with Team Members by selecting "Notify Team Members".</li>
-            </ol>
-          </section>
+    <div className="min-h-screen bg-neutral-950 text-white font-sans relative overflow-hidden bg-grid-white/[0.02]">
+      {/* Background radial glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-500/5 blur-[140px] rounded-full pointer-events-none" />
 
-          <section className="mb-8 p-4 bg-gray-800 bg-opacity-50 rounded-md shadow-md">
-            <h3 className="text-xl font-semibold text-purple-400 mb-2">Downloading the Desktop Plugin</h3>
-            <ol className="list-decimal list-inside space-y-2">
-              <li>Download Plugin from the Settings page for Windows, Mac, or Linux.</li>
-              <li>Install Plugin and follow the on-screen instructions.</li>
-              <li>Log In on Desktop to access ClipSync’s features directly from your computer.</li>
-            </ol>
-          </section>
-
-          <section className="mb-8 p-4 bg-gray-800 bg-opacity-50 rounded-md shadow-md">
-            <h3 className="text-xl font-semibold text-purple-400 mb-2">Selecting Resolution</h3>
-            <ol className="list-decimal list-inside space-y-2">
-              <li>Adjust Resolution in the recording toolbar for the best quality.</li>
-              <li>Resolution Options include 480p, 720p, 1080p, and 4K.</li>
-            </ol>
-          </section>
-
-          <section className="mb-8 p-4 bg-gray-800 bg-opacity-50 rounded-md shadow-md">
-            <h3 className="text-xl font-semibold text-purple-400 mb-2">Plans and Pricing</h3>
-            <div className="space-y-2">
-              <p><strong>Free Plan:</strong> Limited recording time, basic sharing, and up to 5 team members per workspace.</p>
-              <p><strong>Paid Plan:</strong> Extended recording times, advanced sharing, and up to 50 team members.</p>
-            </div>
-          </section>
-
+      {/* Header Container */}
+      <header className="max-w-6xl mx-auto pt-16 pb-8 px-6 flex flex-col md:flex-row md:items-center justify-between border-b border-neutral-900 gap-4">
+        <div className="flex items-center gap-x-4">
+          <Link
+            href="/"
+            className="p-2.5 rounded-full border border-neutral-800 bg-neutral-900/40 hover:bg-neutral-800 transition text-neutral-400 hover:text-white"
+            title="Back to Home"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+          <div>
+            <h1 className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400">
+              ClipSync Docs
+            </h1>
+            <p className="text-sm text-neutral-400 mt-1">
+              Your guide to screen recording, workspaces, and team broadcasting.
+            </p>
+          </div>
         </div>
-      </div>
+      </header>
+
+      {/* Two-Column Sidebar Layout */}
+      <main className="max-w-6xl mx-auto py-12 px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Sidebar Links */}
+        <aside className="lg:col-span-4 bg-neutral-900/40 backdrop-blur-sm border border-neutral-900 rounded-3xl p-4 space-y-1">
+          <p className="text-xs font-semibold text-neutral-500 px-4 py-2 uppercase tracking-wider">
+            Guides & references
+          </p>
+          {sections.map((section) => {
+            const Icon = section.icon;
+            const isActive = activeTab === section.id;
+            return (
+              <button
+                key={section.id}
+                onClick={() => setActiveTab(section.id)}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-left text-sm font-medium transition ${
+                  isActive
+                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/10"
+                    : "text-neutral-400 hover:bg-neutral-900 hover:text-white"
+                }`}
+              >
+                <div className="flex items-center gap-x-3">
+                  <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-neutral-500"}`} />
+                  <span>{section.title}</span>
+                </div>
+                <ChevronRight className={`w-4 h-4 transition ${isActive ? "opacity-100" : "opacity-0"}`} />
+              </button>
+            );
+          })}
+        </aside>
+
+        {/* Right Content Panel */}
+        <section className="lg:col-span-8 space-y-6">
+          <div className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-900 rounded-3xl p-8 lg:p-10 shadow-lg min-h-[400px] flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-x-3 mb-6">
+                <div className="p-3 rounded-2xl bg-indigo-500/10 text-indigo-400">
+                  <activeSection.icon className="w-6 h-6" />
+                </div>
+                <h2 className="text-2xl font-bold tracking-tight text-white">
+                  {activeSection.title}
+                </h2>
+              </div>
+              <hr className="border-neutral-900 mb-6" />
+
+              <div className="space-y-6">
+                {activeSection.content.map((item, index) => (
+                  <div key={index} className="flex gap-x-4 items-start bg-neutral-950/40 p-5 rounded-2xl border border-neutral-900">
+                    <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider bg-indigo-500/10 px-3 py-1 rounded-full shrink-0">
+                      {item.step}
+                    </span>
+                    <p className="text-neutral-300 text-sm md:text-base leading-relaxed mt-0.5">
+                      {item.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-12 pt-6 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+              <span>Need help? Contact support at clip.sync.2k24@gmail.com</span>
+              <Link href="/pricing" className="text-indigo-400 hover:underline font-medium">
+                View Pricing Plans &rarr;
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 };

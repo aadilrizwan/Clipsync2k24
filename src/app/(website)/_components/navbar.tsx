@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { HoveredLink, Menu as MenuComponent, MenuItem, ProductItem } from "./ui/navbar-menu";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -12,44 +11,45 @@ type Props = {
 };
 
 const LandingPageNavBar = ({ className }: Props) => {
-  const [active, setActive] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
-    <div className={cn("flex w-full justify-between items-center fixed top-10 inset-x-0 px-8 max-w-6xl mx-auto z-50", className)}>
+    <div className={cn("flex w-full justify-between items-center fixed top-6 inset-x-0 px-8 py-3 max-w-5xl mx-auto z-50 bg-[#09090b]/80 backdrop-blur-md border border-neutral-900 rounded-full shadow-lg", className)}>
       <div className="flex items-center gap-x-3">
-        <Image alt="logo" src="/logo.png" width={59} height={59} className="rounded-full" />
-        <span className="text-3xl font-semibold text-white">ClipSync</span>
+        <Image alt="logo" src="/logo.png" width={34} height={34} className="rounded-full" />
+        <span className="text-xl font-bold text-white tracking-tight">ClipSync</span>
       </div>
-      <div className="hidden md:flex gap-x-6 text-white">
-        <MenuComponent setActive={setActive}>
-          <Link href="/">
-            <MenuItem setActive={setActive} active={active} item="Home" />
-          </Link>
-          <Link href="/docs">
-            <MenuItem setActive={setActive} active={active} item="Docs" />
-          </Link>
-          <Link href="/pricing">
-            <MenuItem setActive={setActive} active={active} item="Pricing" />
-          </Link>
-          <Link href="/products">
-            <MenuItem setActive={setActive} active={active} item="Products" />
-          </Link>
-          <Link href="/contact">
-            <MenuItem setActive={setActive} active={active} item="Contact" />
-          </Link>
-        </MenuComponent>
+      
+      {/* Center Nav Links */}
+      <div className="hidden md:flex items-center gap-x-8 text-neutral-400 text-sm font-semibold">
+        <Link href="/" className="hover:text-white transition-colors duration-200">
+          Home
+        </Link>
+        <Link href="/docs" className="hover:text-white transition-colors duration-200">
+          Docs
+        </Link>
+        <Link href="/pricing" className="hover:text-white transition-colors duration-200">
+          Pricing
+        </Link>
+        <Link href="/products" className="hover:text-white transition-colors duration-200">
+          Products
+        </Link>
+        <Link href="/contact" className="hover:text-white transition-colors duration-200">
+          Contact
+        </Link>
       </div>
+
       <Link href="/auth/sign-in" className="hidden md:block">
-        <Button className="text-base flex gap-x-2">
-          <User fill="#000" />
+        <Button className="text-sm bg-indigo-600 hover:bg-indigo-500 text-white rounded-full px-5 py-2 flex gap-x-2 font-bold transition">
+          <User size={14} className="text-indigo-200" />
           Login
         </Button>
       </Link>
+      
       <button
-        className="md:hidden text-gray-700 dark:text-gray-300"
+        className="md:hidden text-gray-400 hover:text-white transition-colors"
         onClick={toggleMobileMenu}
       >
         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -57,27 +57,27 @@ const LandingPageNavBar = ({ className }: Props) => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 z-40 flex flex-col items-center justify-center space-y-8 text-white">
-          <button className="absolute top-4 right-4 text-white" onClick={toggleMobileMenu}>
+        <div className="fixed top-0 left-0 w-full h-full bg-black/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center space-y-8 text-white">
+          <button className="absolute top-6 right-6 text-neutral-400 hover:text-white" onClick={toggleMobileMenu}>
             <X size={32} />
           </button>
-          <Link href="/" onClick={toggleMobileMenu}>
-            <span className="text-2xl font-medium">Home</span>
+          <Link href="/" onClick={toggleMobileMenu} className="text-2xl font-semibold hover:text-indigo-400 transition">
+            Home
           </Link>
-          <Link href="/docs" onClick={toggleMobileMenu}>
-            <span className="text-2xl font-medium">Docs</span>
+          <Link href="/docs" onClick={toggleMobileMenu} className="text-2xl font-semibold hover:text-indigo-400 transition">
+            Docs
           </Link>
-          <Link href="/pricing" onClick={toggleMobileMenu}>
-            <span className="text-2xl font-medium">Pricing</span>
+          <Link href="/pricing" onClick={toggleMobileMenu} className="text-2xl font-semibold hover:text-indigo-400 transition">
+            Pricing
           </Link>
-          <Link href="/products" onClick={toggleMobileMenu}>
-            <span className="text-2xl font-medium">Products</span>
+          <Link href="/products" onClick={toggleMobileMenu} className="text-2xl font-semibold hover:text-indigo-400 transition">
+            Products
           </Link>
-          <Link href="/contact" onClick={toggleMobileMenu}>
-            <span className="text-2xl font-medium">Contact</span>
+          <Link href="/contact" onClick={toggleMobileMenu} className="text-2xl font-semibold hover:text-indigo-400 transition">
+            Contact
           </Link>
           <Link href="/auth/sign-in" onClick={toggleMobileMenu}>
-            <Button className="text-lg flex gap-x-2">
+            <Button className="text-lg bg-indigo-600 hover:bg-indigo-500 text-white rounded-full px-8 py-3 flex gap-x-2 font-bold">
               <User fill="#fff" />
               Login
             </Button>

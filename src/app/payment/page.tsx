@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 type Props = {
-  searchParams: { session_id?: string; cancel?: boolean }
+  searchParams: Promise<{ session_id?: string; cancel?: boolean }>
 }
 
 const page = async ({ searchParams }: Props) => {

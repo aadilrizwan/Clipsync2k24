@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="bg-black text-aqua-400 py-12">
+    <footer className="bg-black text-neutral-400 py-12 border-t border-neutral-900">
       <div
         className="max-w-6xl mx-auto grid grid-cols-1
      sm:grid-cols-2 lg:grid-cols-4 
@@ -8,7 +8,7 @@ function Footer() {
       >
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">About Us</h2>
-          <p className="text-white">
+          <p className="text-neutral-300">
             ClipSync is a video messaging platform designed for asynchronous
             communication, particularly in work environments. It allows users to
             quickly create and share videos by recording their screen, webcam,
@@ -17,35 +17,35 @@ function Footer() {
         </div>
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">Quick links</h2>
-          <ul>
+          <ul className="space-y-2">
             <li>
               <a
-                href=""
-                className="hover:text-aqua transition-colors duration-300 text-white"
+                href="/"
+                className="hover:text-indigo-400 transition-colors duration-300 text-neutral-300"
               >
                 Home
               </a>
             </li>
             <li>
               <a
-                href=""
-                className="hover:text-aqua transition-colors duration-300 text-white"
+                href="/docs"
+                className="hover:text-indigo-400 transition-colors duration-300 text-neutral-300"
               >
-               Docs
+                Docs
               </a>
             </li>
             <li>
               <a
-                href=""
-                className="hover::text-aqua transition-colors duration-300 text-white"
+                href="/pricing"
+                className="hover:text-indigo-400 transition-colors duration-300 text-neutral-300"
               >
                 Pricing
               </a>
             </li>
             <li>
               <a
-                href=""
-                className="hover:text-aqua transition-colors duration-300 text-white"
+                href="/contact"
+                className="hover:text-indigo-400 transition-colors duration-300 text-neutral-300"
               >
                 Contact
               </a>
@@ -56,20 +56,20 @@ function Footer() {
           <h2 className="text-white text-lg font-semibold mb-4">Follow Us</h2>
           <div className="flex space-x-4">
             <a
-              href=""
-              className="hover:text-aqua transition-colors duration-300 text-white"
+              href="https://github.com"
+              className="hover:text-indigo-400 transition-colors duration-300 text-neutral-300"
             >
               Github
             </a>
             <a
-              href=""
-              className="hover:text-aqua transition-colors duration-300 text-white"
+              href="https://linkedin.com"
+              className="hover:text-indigo-400 transition-colors duration-300 text-neutral-300"
             >
-              Linkedln
+              LinkedIn
             </a>
             <a
-              href=""
-              className="hover:text-aqua transition-colors duration-300 text-white"
+              href="https://twitter.com"
+              className="hover:text-indigo-400 transition-colors duration-300 text-neutral-300"
             >
               Twitter
             </a>
@@ -77,14 +77,11 @@ function Footer() {
         </div>
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">Contact Us</h2>
-          <p className="text-white">Allahabad,India</p>
-          <p className="text-white">Allahabd, 211004</p>
-          <p className="text-white">Email:clip.sync@2k24@gmail.com</p>
-          <p className="text-white">phone: +91 1234567890</p>
+          <p className="text-neutral-300">Email: clip.sync.2k24@gmail.com</p>
         </div>
       </div>
-      <p className="text-center mt-10 text-xs">
-        &copy; 2024 ClipSync, All right reserved{" "}
+      <p className="text-center mt-10 text-xs text-neutral-500">
+        &copy; 2024 ClipSync. All rights reserved.
       </p>
     </footer>
   );
