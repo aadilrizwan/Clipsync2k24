@@ -10,11 +10,11 @@ const PaymentButton = (props: Props) => {
 
   return (
     <Button
-      className="text-sm w-full "
+      className="text-xs w-full py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg shadow-sm hover:shadow-indigo-500/10 transition-all duration-200 font-semibold"
       onClick={onSubscribe}
     >
       <Loader
-        color="#000"
+        color="#fff"
         state={isProcessing}
       >
         Upgrade

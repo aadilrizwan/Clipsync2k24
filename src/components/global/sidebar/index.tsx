@@ -56,50 +56,52 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
   }
 
   const SidebarSection = (
-    <div className="bg-white dark:bg-black flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center">
-      <div className="bg-white dark:bg-black p-4 flex gap-2 justify-center items-center mb-4 absolute top-0 left-0 right-0 ">
+    <div className="bg-white dark:bg-[#09090b]/80 backdrop-blur-lg dark:border-neutral-900/60 flex-none p-4 h-full w-[250px] flex flex-col gap-4 items-center border-r transition-all duration-300">
+      <div className="w-full p-4 flex gap-2 justify-center items-center border-b dark:border-neutral-900/40 mb-2">
         <Image src="/logo.png" height={43} width={43} alt="logo" />
-        <p className="text-2xl font-bold">ClipSync</p>
+        <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">ClipSync</p>
       </div>
-      <div
-        onClick={toggleDropdown}
-        className="flex justify-center items-center mt-16 cursor-pointer"
-      >
-        <button className="flex items-center px-4 py-2 bg-white dark:bg-black rounded-3xl shadow-lg hover:shadow-xl hover:shadow-blue-500/50 transition duration-300 border">
-          <span className="mr-2">
-            <Pluss />
-          </span>
-          <span className="text-black font-bold dark:text-white">New</span>
-        </button>
-      </div>
-
-      {dropdownOpen && (
-        <div className="mt-6 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg">
-          <ul className="py-2">
-            <li className="px-4 py-2 cursor-pointer">
-              {" "}
-              <Button className="bg-black flex items-center gap-2 rounded-xl w-full h-full dark:text-white">
-                <VideoRecorderIcon />
-                <span className="flex items-center gap-2">Record</span>
-              </Button>
-            </li>
-            <li className="px-4 py-2 cursor-pointer">
-              <Button className="bg-black flex items-center gap-2 rounded-xl w-full h-full dark:text-white">
-                <UploadIcon size={20} />{" "}
-                <span className="flex items-center gap-2">Upload</span>
-              </Button>
-            </li>
-            <li className="px-4 py-2 cursor-pointer">
-              <CreateForlders workspaceId={activeWorkspaceId} />
-            </li>
-            <li className="px-4 py-2 cursor-pointer">
-              <CreateWorkspace />
-            </li>
-          </ul>
+      
+      <div className="w-full relative px-2">
+        <div
+          onClick={toggleDropdown}
+          className="flex justify-center items-center cursor-pointer w-full"
+        >
+          <button className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-neutral-900/60 dark:bg-neutral-900/40 hover:bg-neutral-800/80 dark:hover:bg-neutral-800/50 text-neutral-900 dark:text-neutral-200 rounded-xl transition-all duration-200 border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md font-semibold text-sm">
+            <Menu className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
+            <span>Actions</span>
+          </button>
         </div>
-      )}
-      <p className="w-full text-[#9D9D9D] font-bold mt-4">Menu</p>
-      <nav className="w-full">
+
+        {dropdownOpen && (
+          <div className="absolute top-[50px] left-0 right-0 z-50 bg-white dark:bg-[#09090b]/95 backdrop-blur-md border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-xl p-2 transition-all">
+            <ul className="flex flex-col gap-1.5">
+              <li>
+                <Button className="bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 flex items-center justify-start gap-2.5 rounded-lg w-full h-full text-neutral-200 hover:text-white transition px-3 py-2 text-sm font-medium">
+                  <VideoRecorderIcon />
+                  <span>Record</span>
+                </Button>
+              </li>
+              <li>
+                <Button className="bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 flex items-center justify-start gap-2.5 rounded-lg w-full h-full text-neutral-200 hover:text-white transition px-3 py-2 text-sm font-medium">
+                  <UploadIcon size={16} className="text-neutral-400" />
+                  <span>Upload</span>
+                </Button>
+              </li>
+              <li className="px-1 py-0.5">
+                <CreateForlders workspaceId={activeWorkspaceId} />
+              </li>
+              <li className="px-1 py-0.5">
+                <CreateWorkspace />
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+      
+      <p className="w-full text-neutral-400 dark:text-neutral-500 font-semibold text-xs uppercase tracking-wider mt-4 px-2">Menu</p>
+      
+      <nav className="w-full flex-1">
         <ul>
           {menuItems.map((item) => (
             <SidebarItem
@@ -118,18 +120,22 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
           ))}
         </ul>
       </nav>
-      <Separator className="w-4/5" />
+      
+      <Separator className="w-4/5 bg-neutral-200 dark:bg-neutral-800/80" />
+      
       {workspace.subscription?.plan === "FREE" && (
-        <GlobalCard
-          title="Unlock Pro Features"
-          description=" Access AI-driven features such as transcription and content summaries"
-          footer={<PaymentButton />}
-        />
+        <div className="w-full px-2 pb-4">
+          <GlobalCard
+            title="Unlock Pro Features"
+            description="Access AI-driven features such as transcription and content summaries"
+            footer={<PaymentButton />}
+          />
+        </div>
       )}
     </div>
   );
   return (
-    <div className="full">
+    <div className="h-full md:w-[250px] md:flex-none">
       <InfoBar activeWorkspaceId = {activeWorkspaceId}/>
       <div className="md:hidden fixed my-4">
         <Sheet>
@@ -138,7 +144,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
               <Menu />
             </Button>
           </SheetTrigger>
-          <SheetContent side={"left"} className="p-0 w-fit h-full">
+          <SheetContent side={"left"} className="p-0 w-fit h-full border-none">
             {SidebarSection}
           </SheetContent>
         </Sheet>
