@@ -1,11 +1,7 @@
 "use server";
-
 import { client } from "@/lib/prisma";
 import { sendEmail } from './user'
 import { currentUser } from "@clerk/nextjs/server";
-import { createClient, OAuthStrategy } from '@wix/sdk'
-import { items } from '@wix/data'
-import axios from 'axios'
 
 export const verifyAccessToWorkspace = async (workspaceId: string) => {
   try {
@@ -50,11 +46,16 @@ export const getWorkspaceFolders = async (workSpaceId: string) => {
     const isFolders = await client.folder.findMany({
       where: {
         workSpaceId,
+        deleted: false,
       },
       include: {
         _count: {
           select: {
-            videos: true,
+            videos: {
+              where: {
+                deleted: false,
+              },
+            },
           },
         },
       },
@@ -75,6 +76,12 @@ export const getAllUserVideos = async (workSpaceId: string) => {
     const videos = await client.video.findMany({
       where: {
         OR: [{ workSpaceId }, { folderId: workSpaceId }],
+        deleted: false,
+        Folder: {
+          isNot: {
+            deleted: true,
+          },
+        },
       },
       select: {
         id: true,
@@ -131,6 +138,9 @@ export const getWorkSpaces = async () => {
           },
         },
         workspace: {
+          where: {
+            deleted: false,
+          },
           select: {
             id: true,
             name: true,
@@ -138,6 +148,11 @@ export const getWorkSpaces = async () => {
           },
         },
         members: {
+          where: {
+            WorkSpace: {
+              deleted: false,
+            },
+          },
           select: {
             WorkSpace: {
               select: {
@@ -313,6 +328,7 @@ export const getPreviewVideo = async (videoId: string) => {
         processing: true,
         views: true,
         summery: true,
+        deleted: true,
         User: {
           select: {
             firstname: true,
@@ -329,10 +345,10 @@ export const getPreviewVideo = async (videoId: string) => {
         },
       },
     })
-    if (video) {
+    if (video && !video.deleted) {
       return {
         status: 200,
-        data: video,
+        data: JSON.parse(JSON.stringify(video)),
         author: user.id === video.User?.clerkid ? true : false,
       }
     }
@@ -341,12 +357,12 @@ export const getPreviewVideo = async (videoId: string) => {
   } catch (error) {
     return { status: 400 }
   }
-} 
+}
 
 export const sendEmailForFirstView = async (videoId: string) => {
   try {
     //bug
-    const user = await currentUser()  
+    const user = await currentUser()
     //
     if (!user) return { status: 404 }
     const firstViewSettings = await client.user.findUnique({
@@ -431,3 +447,175 @@ export const editVideoInfo = async (
     return { status: 400 }
   }
 }
+
+export const softDeleteWorkspace = async (workspaceId: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) return { status: 404 };
+    const updated = await client.workSpace.update({
+      where: { id: workspaceId },
+      data: { deleted: true }
+    });
+    if (updated) return { status: 200, data: "Workspace moved to trash" };
+    return { status: 400, data: "Workspace not found" };
+  } catch (error) {
+    return { status: 500, data: "Something went wrong" };
+  }
+};
+
+export const restoreWorkspace = async (workspaceId: string) => {
+  try {
+    const updated = await client.workSpace.update({
+      where: { id: workspaceId },
+      data: { deleted: false }
+    });
+    if (updated) return { status: 200, data: "Workspace restored" };
+    return { status: 400, data: "Workspace not found" };
+  } catch (error) {
+    return { status: 500, data: "Something went wrong" };
+  }
+};
+
+export const permanentlyDeleteWorkspace = async (workspaceId: string) => {
+  try {
+    await client.video.deleteMany({
+      where: { workSpaceId: workspaceId }
+    });
+    await client.folder.deleteMany({
+      where: { workSpaceId: workspaceId }
+    });
+    await client.member.deleteMany({
+      where: { workSpaceId: workspaceId }
+    });
+    await client.invite.deleteMany({
+      where: { workSpaceId: workspaceId }
+    });
+    const deleted = await client.workSpace.delete({
+      where: { id: workspaceId }
+    });
+    if (deleted) return { status: 200, data: "Workspace permanently deleted" };
+    return { status: 400, data: "Workspace not found" };
+  } catch (error) {
+    console.error("Error deleting workspace: ", error);
+    return { status: 500, data: "Something went wrong" };
+  }
+};
+
+export const softDeleteFolder = async (folderId: string) => {
+  try {
+    const updated = await client.folder.update({
+      where: { id: folderId },
+      data: { deleted: true }
+    });
+    if (updated) return { status: 200, data: "Folder moved to trash" };
+    return { status: 400, data: "Folder not found" };
+  } catch (error) {
+    return { status: 500, data: "Something went wrong" };
+  }
+};
+
+export const restoreFolder = async (folderId: string) => {
+  try {
+    const updated = await client.folder.update({
+      where: { id: folderId },
+      data: { deleted: false }
+    });
+    if (updated) return { status: 200, data: "Folder restored" };
+    return { status: 400, data: "Folder not found" };
+  } catch (error) {
+    return { status: 500, data: "Something went wrong" };
+  }
+};
+
+export const permanentlyDeleteFolder = async (folderId: string) => {
+  try {
+    const deleted = await client.folder.delete({
+      where: { id: folderId }
+    });
+    if (deleted) return { status: 200, data: "Folder permanently deleted" };
+    return { status: 400, data: "Folder not found" };
+  } catch (error) {
+    return { status: 500, data: "Something went wrong" };
+  }
+};
+
+export const softDeleteVideo = async (videoId: string) => {
+  try {
+    const updated = await client.video.update({
+      where: { id: videoId },
+      data: { deleted: true }
+    });
+    if (updated) return { status: 200, data: "Video moved to trash" };
+    return { status: 400, data: "Video not found" };
+  } catch (error) {
+    return { status: 500, data: "Something went wrong" };
+  }
+};
+
+export const restoreVideo = async (videoId: string) => {
+  try {
+    const updated = await client.video.update({
+      where: { id: videoId },
+      data: { deleted: false }
+    });
+    if (updated) return { status: 200, data: "Video restored" };
+    return { status: 400, data: "Video not found" };
+  } catch (error) {
+    return { status: 500, data: "Something went wrong" };
+  }
+};
+
+export const permanentlyDeleteVideo = async (videoId: string) => {
+  try {
+    const deleted = await client.video.delete({
+      where: { id: videoId }
+    });
+    if (deleted) return { status: 200, data: "Video permanently deleted" };
+    return { status: 400, data: "Video not found" };
+  } catch (error) {
+    return { status: 500, data: "Something went wrong" };
+  }
+};
+
+export const getDeletedItems = async (workspaceId: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) return { status: 404, data: { folders: [], videos: [], workspaces: [] } };
+
+    const folders = await client.folder.findMany({
+      where: {
+        workSpaceId: workspaceId,
+        deleted: true
+      }
+    });
+
+    const videos = await client.video.findMany({
+      where: {
+        workSpaceId: workspaceId,
+        deleted: true
+      }
+    });
+
+    const workspaces = await client.workSpace.findMany({
+      where: {
+        User: {
+          clerkid: user.id
+        },
+        deleted: true
+      }
+    });
+
+    return {
+      status: 200,
+      data: JSON.parse(
+        JSON.stringify({
+          folders,
+          videos,
+          workspaces,
+        })
+      ),
+    };
+  } catch (error) {
+    return { status: 500, data: { folders: [], videos: [], workspaces: [] } };
+  }
+};

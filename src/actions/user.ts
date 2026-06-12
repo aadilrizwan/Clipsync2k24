@@ -46,9 +46,7 @@ export const onAuthenticateUser = async () => {
       include: {
         workspace: {
           where: {
-            User: {
-              clerkid: user.id,
-            },
+            deleted: false,
           },
         },
       },
@@ -80,9 +78,7 @@ export const onAuthenticateUser = async () => {
       include: {
         workspace: {
           where: {
-            User: {
-              clerkid: user.id,
-            },
+            deleted: false,
           },
         },
         subscription: {
