@@ -1,5 +1,6 @@
 const fs = require("fs");
 const fsp = fs.promises;
+const path = require("path");
 const cors = require("cors");
 const http = require("http");
 const express = require("express");
@@ -8,13 +9,13 @@ const { Readable } = require("stream");
 const axios = require("axios");
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
-const OpenAI = require('openai');
 
 dotenv.config();
 
-const openai = new OpenAI({
-  apiKey: process.env.OPEN_AI_KEY,
-});
+const uploadDir = path.join(__dirname, "temp_upload");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -36,24 +37,23 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("Socket is Connected");
 
-  socket.on("video-chunks", (data) => {
+  socket.on("video-chunks", async (data) => {
     console.log("Video Chunk is sent");
 
-    const filePath = `temp_upload/${data.filename}`;
-    const writestream = fs.createWriteStream(filePath, { flags: "a" });
+    const filePath = path.join(uploadDir, data.filename);
     const buffer = Buffer.from(data.chunks);
-    const readStream = Readable.from(buffer);
-    readStream.pipe(writestream).on("finish", () => {
+    try {
+      await fsp.appendFile(filePath, buffer);
       console.log("Chunk saved");
-    }).on("error", (err) => {
+    } catch (err) {
       console.error("Error saving chunk:", err);
-    });
+    }
   });
 
   socket.on("process-video", async (data) => {
     console.log("Processing video...");
 
-    const filePath = `temp_upload/${data.filename}`;
+    const filePath = path.join(uploadDir, data.filename);
 
     try {
       const file = await fsp.readFile(filePath);
@@ -74,60 +74,85 @@ io.on("connection", (socket) => {
       console.log("Video uploaded to Cloudinary:", uploadResult.secure_url);
 
       if (processingResponse.data.plan === "PRO") {
-        // console.log("Inside Pro");
         const stat = await fsp.stat(filePath);
 
         console.log("STAT: ", stat);
 
         if (stat.size < 25000000) {
-          console.log("Size OK");
-          let transcription;
+          console.log("Size OK, calling Gemini API...");
           try {
-            transcription = await openai.audio.transcriptions.create({
-              file: fs.createReadStream(filePath),
-              model: "whisper-1",
-              response_format: "text",
-            });
-          } catch (err) {
-            console.error("Error transcribing the audio:", err);
-            return;
-          }
-
-          console.log("Transcription Done");
-
-          if (transcription) {
-
-            console.log("Transcription: ",transcription);
-
-            const completion = await openai.chat.completions.create({
-              model: "gpt-3.5-turbo",
-              messages: [
-                {
-                  role: "system",
-                  content: `You are going to generate a title and a description based on the transcription provided: transcription(${transcription}) and return it in JSON format as {"title": <title>, "summary": <summary>}`,
-                },
-              ],
-            });
+            const base64Data = file.toString("base64");
+            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API}`;
             
-            console.log("Completion Done: ",completion);
-            console.log("Testing :",completion.choices[0].message.content);
-
-            try {
-              await axios.post(
-                `${process.env.NEXT_API_HOST}recording/${data.userId}/transcribe`,
+            const requestBody = {
+              contents: [
                 {
-                  videoUrl: uploadResult.secure_url,
-                  filename: data.filename,
-                  content: completion.choices[0].message.content,
-                  transcript: transcription,
+                  parts: [
+                    {
+                      inlineData: {
+                        mimeType: "video/webm",
+                        data: base64Data
+                      }
+                    },
+                    {
+                      text: "Analyze this video. Transcribe the audio content precisely, and generate a brief title and summary based on the transcript."
+                    }
+                  ]
                 }
-              );
-            } catch (error) {
-              console.error("Error in transcribe request:", error.response?.data || error.message);
+              ],
+              generationConfig: {
+                responseMimeType: "application/json",
+                responseSchema: {
+                  type: "OBJECT",
+                  properties: {
+                    transcript: { type: "STRING" },
+                    title: { type: "STRING" },
+                    summary: { type: "STRING" }
+                  },
+                  required: ["transcript", "title", "summary"]
+                }
+              }
+            };
+
+            const geminiResponse = await axios.post(geminiUrl, requestBody, {
+              headers: { "Content-Type": "application/json" }
+            });
+
+            console.log("Gemini API Call Succeeded");
+
+            if (
+              geminiResponse.data &&
+              geminiResponse.data.candidates &&
+              geminiResponse.data.candidates[0] &&
+              geminiResponse.data.candidates[0].content &&
+              geminiResponse.data.candidates[0].content.parts &&
+              geminiResponse.data.candidates[0].content.parts[0]
+            ) {
+              const textContent = geminiResponse.data.candidates[0].content.parts[0].text;
+              const result = JSON.parse(textContent);
+              
+              console.log("Parsed Gemini Output:", result);
+
+              try {
+                await axios.post(
+                  `${process.env.NEXT_API_HOST}recording/${data.userId}/transcribe`,
+                  {
+                    videoUrl: uploadResult.secure_url,
+                    filename: data.filename,
+                    content: JSON.stringify({
+                      title: result.title || "Untitled Video",
+                      summary: result.summary || "No summary available."
+                    }),
+                    transcript: result.transcript || "",
+                  }
+                );
+                console.log("Transcribe route updated successfully");
+              } catch (error) {
+                console.error("Error in transcribe request:", error.response?.data || error.message);
+              }
             }
-
-            console.log("After Axios transcribe");
-
+          } catch (err) {
+            console.error("Error transcribing the audio with Gemini:", err.response?.data || err.message || err);
           }
         }
       }
