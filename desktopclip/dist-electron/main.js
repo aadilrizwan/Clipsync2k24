@@ -1,8 +1,8 @@
 import { app, ipcMain, desktopCapturer, BrowserWindow } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-process.env.APP_ROOT = path.join(__dirname, "..");
+const __dirname$1 = path.dirname(fileURLToPath(import.meta.url));
+process.env.APP_ROOT = path.join(__dirname$1, "..");
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
@@ -19,13 +19,13 @@ function createWindow() {
     frame: false,
     transparent: true,
     alwaysOnTop: true,
-    focusable: false,
+    focusable: true,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       devTools: true,
-      preload: path.join(__dirname, "preload.mjs")
+      preload: path.join(__dirname$1, "preload.mjs")
     }
   });
   studio = new BrowserWindow({
@@ -44,7 +44,7 @@ function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
       devTools: true,
-      preload: path.join(__dirname, "preload.mjs")
+      preload: path.join(__dirname$1, "preload.mjs")
     }
   });
   floatingWebCam = new BrowserWindow({
@@ -63,7 +63,7 @@ function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
       devTools: true,
-      preload: path.join(__dirname, "preload.mjs")
+      preload: path.join(__dirname$1, "preload.mjs")
     }
   });
   win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
@@ -113,11 +113,11 @@ ipcMain.handle("getSources", async () => {
   });
   return data;
 });
-ipcMain.on("media-sources", (event, payload) => {
+ipcMain.on("media-sources", (_event, payload) => {
   console.log(payload);
   studio == null ? void 0 : studio.webContents.send("profile-recieved", payload);
 });
-ipcMain.on("resize-studio", (event, payload) => {
+ipcMain.on("resize-studio", (_event, payload) => {
   if (payload.shrink) {
     studio == null ? void 0 : studio.setSize(400, 100);
   }
@@ -125,7 +125,7 @@ ipcMain.on("resize-studio", (event, payload) => {
     studio == null ? void 0 : studio.setSize(400, 250);
   }
 });
-ipcMain.on("hide-plugin", (event, payload) => {
+ipcMain.on("hide-plugin", (_event, payload) => {
   win == null ? void 0 : win.webContents.send("hide-plugin", payload);
 });
 app.on("activate", () => {
