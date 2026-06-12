@@ -1,7 +1,5 @@
 import { SourceDeviceStateProps } from "@/hooks/useMediaSources";
 import { useStudioSettings } from "@/hooks/useStudioSettings";
-import { stat } from "fs";
-import React from "react";
 import { Loader } from "../Loader";
 import { Headphones, Monitor, Settings2 } from "lucide-react";
 

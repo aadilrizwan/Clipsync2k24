@@ -1,7 +1,7 @@
 import { onStopRecording, selectSources, StartRecording } from "@/lib/recorder";
-import { cn, resizeWindow, videoRecordingTime } from "@/lib/utils";
+import { cn, videoRecordingTime } from "@/lib/utils";
 import { Cast, Pause, Square } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const StudioTray = () => {
   // console.log("Inside studio tray")
@@ -23,10 +23,10 @@ const StudioTray = () => {
   >(undefined);
   console.log("Printing data inside onSources ", onSources);
 
-  window.ipcRenderer.on("profile-recieved", (event, payload) => {
+  window.ipcRenderer.on("profile-recieved", (_event, payload) => {
     console.log(event);
     console.log(payload);
-    // console.log("🎈 Inside select sources -> ", payload)
+    // console.log("Inside select sources -> ", payload)
     setOnSources(payload);
   });
 
@@ -59,22 +59,25 @@ const StudioTray = () => {
   const videoElement = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    if(onSources && onSources.screen) selectSources(onSources, videoElement)
-      return () => {
-    selectSources(onSources!, videoElement)}
-  }, [onSources])
+    if (onSources && onSources.screen) selectSources(onSources, videoElement);
+    return () => {
+      selectSources(onSources!, videoElement);
+    };
+  }, [onSources]);
 
-  // console.log("🎈 Inside select sources -> ", onSources)
+  // console.log("Inside select sources -> ", onSources)
 
   return !onSources ? (
     <></>
   ) : (
     <div className="flex flex-col justify-end gap-y-5 h-screen">
-      {preview && <video
-        autoPlay
-        ref={videoElement}
-        className={cn(`w-6/12 self-end bg-white`)}
-      />}
+      {preview && (
+        <video
+          autoPlay
+          ref={videoElement}
+          className={cn(`w-6/12 self-end bg-white`)}
+        />
+      )}
       <div className="rounded-full flex justify-around items-center h-20 w-full border-2 bg-[#171717] draggable border-white/40">
         <div
           {...(onSources && {
@@ -85,7 +88,7 @@ const StudioTray = () => {
           })}
           className={cn(
             "non-draggable rounded-full cursor-pointer relative hover:opacity-80",
-            recording ? "bg-red-500 w-6 h-6" : "bg-red-400 w-8 h-8"
+            recording ? "bg-red-500 w-6 h-6" : "bg-red-400 w-8 h-8",
           )}
         >
           {recording && (
@@ -108,18 +111,18 @@ const StudioTray = () => {
             fill="white"
             stroke="none"
             onClick={() => {
-                setRecording(false)
-                clearTime()
-                onStopRecording()
+              setRecording(false);
+              clearTime();
+              onStopRecording();
             }}
           />
         )}
         <Cast
-            onClick={() => setPreview(prev => !prev)}
-            size={32}
-            fill="white"
-            className="non-draggable cursor-pointer hover:opacity-60"
-            stroke="white"
+          onClick={() => setPreview((prev) => !prev)}
+          size={32}
+          fill="white"
+          className="non-draggable cursor-pointer hover:opacity-60"
+          stroke="white"
         />
       </div>
     </div>
