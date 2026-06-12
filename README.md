@@ -26,7 +26,7 @@
 
 ## Overview
 
-**ClipSync** is a full-stack video messaging platform designed for asynchronous communication. It replaces lengthy meetings and walls of text with quick, contextual video messages that keep teams aligned — no matter the timezone.
+**ClipSync** is a full-stack video messaging platform designed for asynchronous communication. It replaces lengthy meetings and walls of text with quick, contextual video messages that keep teams aligned no matter the timezone.
 
 The project is structured as a **monorepo** containing three interconnected services:
 
